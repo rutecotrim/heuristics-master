@@ -49,13 +49,6 @@ export function GameScreen({ game }: GameScreenProps) {
   }, [state.phase, state.currentQuestion?.id, state.showExplanation])
 
   useEffect(() => {
-    if (state.phase === 'playing') {
-      const t = setTimeout(() => beginTurn(), 450)
-      return () => clearTimeout(t)
-    }
-  }, [state.phase, state.currentPlayerIndex, beginTurn])
-
-  useEffect(() => {
     if (state.phase !== 'dice_roll') return
 
     const generation = ++rollGeneration.current
@@ -132,6 +125,8 @@ export function GameScreen({ game }: GameScreenProps) {
     { ...state.players[1], position: localPositions[1] },
   ]
 
+  const currentPlayer = state.players[state.currentPlayerIndex]
+
   const handleAnswer = (index: number) => {
     if (state.showExplanation) return
     setSelectedIndex(index)
@@ -182,9 +177,51 @@ export function GameScreen({ game }: GameScreenProps) {
 
             <Board players={displayPlayers} highlightIndex={highlightIndex} />
 
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
+              {state.phase === 'playing' && (
+                <motion.div
+                  key="ready"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="flex justify-center"
+                >
+                  <div className="panel flex w-full max-w-xl flex-col items-center gap-4 rounded-[1.5rem] px-5 py-4 sm:flex-row sm:justify-between">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="flex h-12 w-12 items-center justify-center rounded-2xl text-2xl"
+                        style={{
+                          backgroundColor: `${currentPlayer.color}44`,
+                          border: `2px solid ${currentPlayer.color}`,
+                        }}
+                      >
+                        {currentPlayer.avatar}
+                      </span>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
+                          Up next
+                        </p>
+                        <p className="font-display text-lg font-extrabold text-ink">
+                          {currentPlayer.name}
+                        </p>
+                      </div>
+                    </div>
+                    <motion.button
+                      type="button"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={beginTurn}
+                      className="btn-primary font-display w-full rounded-xl px-5 py-3 text-sm font-extrabold sm:w-auto sm:text-base"
+                    >
+                      Ready for next question
+                    </motion.button>
+                  </div>
+                </motion.div>
+              )}
+
               {(state.phase === 'dice_roll' || state.phase === 'moving') && (
                 <motion.div
+                  key="dice"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
@@ -214,6 +251,7 @@ export function GameScreen({ game }: GameScreenProps) {
       {state.phase === 'question' && state.currentQuestion && (
         <QuestionModal
           question={state.currentQuestion}
+          player={currentPlayer}
           showExplanation={state.showExplanation}
           lastAnswerCorrect={state.lastAnswerCorrect}
           selectedIndex={selectedIndex}

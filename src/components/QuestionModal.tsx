@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, X } from 'lucide-react'
-import type { Question } from '../types/game'
+import type { Player, Question } from '../types/game'
 
 interface QuestionModalProps {
   question: Question
+  player: Player
   showExplanation: boolean
   lastAnswerCorrect: boolean | null
   selectedIndex: number | null
@@ -14,6 +15,7 @@ interface QuestionModalProps {
 
 export function QuestionModal({
   question,
+  player,
   showExplanation,
   lastAnswerCorrect,
   selectedIndex,
@@ -36,6 +38,29 @@ export function QuestionModal({
           transition={{ type: 'spring', stiffness: 280, damping: 22 }}
           className="panel relative max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.75rem] p-5 shadow-2xl sm:p-8"
         >
+          <div
+            className="mb-5 flex items-center gap-3 rounded-2xl px-3 py-2.5"
+            style={{ backgroundColor: `${player.color}22`, border: `2px solid ${player.color}` }}
+          >
+            <span
+              className="flex h-11 w-11 items-center justify-center rounded-xl text-2xl"
+              style={{ backgroundColor: `${player.color}55` }}
+            >
+              {player.avatar}
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
+                Now answering
+              </p>
+              <p className="font-display truncate text-lg font-extrabold text-ink">
+                {player.name}&apos;s turn
+              </p>
+            </div>
+            <span className="font-display rounded-full bg-ink px-3 py-1 text-[10px] font-extrabold uppercase tracking-wide text-parchment">
+              {isBonus ? 'Bonus' : 'Question'}
+            </span>
+          </div>
+
           <div className="mb-4 flex flex-wrap items-center gap-2">
             <span className="font-display rounded-full bg-felt px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-lime-pop">
               {isBonus ? 'Bonus Quiz' : 'Heuristic Challenge'}
