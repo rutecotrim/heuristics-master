@@ -7,6 +7,7 @@ import { Board } from './Board'
 import { Dice } from './Dice'
 import { PlayerPanel } from './PlayerPanel'
 import { QuestionModal } from './QuestionModal'
+import { ScreenShell } from './ScreenShell'
 import { SpecialTilePopup } from './SpecialTilePopup'
 
 interface GameScreenProps {
@@ -138,66 +139,75 @@ export function GameScreen({ game }: GameScreenProps) {
   }
 
   return (
-    <div className="flex min-h-full flex-col px-3 py-4 md:px-6 md:py-6">
-      <header className="mb-4 flex items-center justify-between gap-4">
-        <h1 className="font-display text-xl font-bold text-white md:text-2xl">
-          🏆 Heuristics Master
-        </h1>
-        <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-sky-100/70">
-          Turn {state.totalTurns + 1}
-        </div>
-      </header>
+    <ScreenShell wide>
+      <div className="flex w-full flex-col gap-5 lg:gap-6">
+        <header className="flex w-full items-center justify-between gap-3">
+          <div>
+            <h1 className="font-display text-xl font-extrabold text-parchment sm:text-2xl">
+              Heuristics Master
+            </h1>
+            <p className="text-xs font-semibold text-parchment/50 sm:text-sm">
+              Race · Learn · Win
+            </p>
+          </div>
+          <div className="rounded-full border border-lime-pop/25 bg-lime-pop/10 px-3 py-1.5 text-xs font-bold text-lime-pop sm:px-4 sm:text-sm">
+            Turn {state.totalTurns + 1}
+          </div>
+        </header>
 
-      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-4 lg:flex-row lg:items-start">
-        <div className="hidden lg:block lg:w-48">
-          <PlayerPanel
-            player={state.players[0]}
-            isActive={state.currentPlayerIndex === 0}
-            side="left"
-          />
-        </div>
-
-        <div className="flex min-w-0 flex-1 flex-col gap-4">
-          <div className="flex justify-center gap-3 lg:hidden">
+        <div className="flex w-full flex-col items-stretch gap-4 lg:flex-row lg:items-center lg:gap-5">
+          <div className="hidden shrink-0 lg:block lg:w-44 xl:w-48">
             <PlayerPanel
               player={state.players[0]}
               isActive={state.currentPlayerIndex === 0}
               side="left"
             />
+          </div>
+
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <div className="grid grid-cols-2 gap-3 lg:hidden">
+              <PlayerPanel
+                player={state.players[0]}
+                isActive={state.currentPlayerIndex === 0}
+                side="left"
+                compact
+              />
+              <PlayerPanel
+                player={state.players[1]}
+                isActive={state.currentPlayerIndex === 1}
+                side="right"
+                compact
+              />
+            </div>
+
+            <Board players={displayPlayers} highlightIndex={highlightIndex} />
+
+            <AnimatePresence>
+              {(state.phase === 'dice_roll' || state.phase === 'moving') && (
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="flex justify-center"
+                >
+                  <div className="panel-dark flex items-center gap-4 rounded-2xl px-5 py-3">
+                    <span className="font-display text-sm font-bold text-parchment">
+                      {rolling ? 'Rolling…' : displayDice ? `Moving ${displayDice}!` : 'Dice'}
+                    </span>
+                    <Dice value={displayDice} rolling={rolling} size="md" />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div className="hidden shrink-0 lg:block lg:w-44 xl:w-48">
             <PlayerPanel
               player={state.players[1]}
               isActive={state.currentPlayerIndex === 1}
               side="right"
             />
           </div>
-
-          <Board players={displayPlayers} highlightIndex={highlightIndex} />
-
-          <AnimatePresence>
-            {(state.phase === 'dice_roll' || state.phase === 'moving') && (
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                className="flex justify-center"
-              >
-                <div className="glass flex items-center gap-4 rounded-2xl px-6 py-3">
-                  <span className="font-display text-sm font-semibold text-sky-100">
-                    {rolling ? 'Rolling…' : displayDice ? `Moving ${displayDice}!` : 'Dice'}
-                  </span>
-                  <Dice value={displayDice} rolling={rolling} size="md" />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        <div className="hidden lg:block lg:w-48">
-          <PlayerPanel
-            player={state.players[1]}
-            isActive={state.currentPlayerIndex === 1}
-            side="right"
-          />
         </div>
       </div>
 
@@ -216,6 +226,6 @@ export function GameScreen({ game }: GameScreenProps) {
       {state.phase === 'tile_effect' && state.pendingEffect && (
         <SpecialTilePopup effect={state.pendingEffect} onContinue={acknowledgeEffect} />
       )}
-    </div>
+    </ScreenShell>
   )
 }

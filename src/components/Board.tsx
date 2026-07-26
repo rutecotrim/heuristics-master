@@ -18,7 +18,7 @@ export function Board({ players, highlightIndex }: BoardProps) {
   })
 
   return (
-    <div className="w-full overflow-hidden rounded-3xl glass-strong p-3 shadow-2xl md:p-4">
+    <div className="board-felt w-full overflow-hidden rounded-[1.75rem] p-3 sm:p-4 md:p-5">
       <div
         className="grid gap-1.5 sm:gap-2"
         style={{
@@ -41,8 +41,7 @@ export function Board({ players, highlightIndex }: BoardProps) {
         )}
       </div>
 
-      {/* Snake direction hints between rows */}
-      <div className="mt-3 flex justify-between px-1 text-[10px] font-semibold uppercase tracking-wider text-sky-200/40 sm:text-xs">
+      <div className="mt-3 flex justify-between px-1 text-[10px] font-bold uppercase tracking-wider text-parchment/40 sm:text-xs">
         <span>→ Start</span>
         <span>Snake path</span>
         <span>Finish 🏆 ←</span>

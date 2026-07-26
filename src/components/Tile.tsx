@@ -91,38 +91,38 @@ const TYPE_STYLES: Record<
   { bg: string; ring: string; icon: string }
 > = {
   start: {
-    bg: 'from-emerald-400 to-teal-600',
-    ring: 'ring-emerald-300/60',
-    icon: 'text-white',
+    bg: 'from-[#c6f15a] to-[#3ecfcf]',
+    ring: 'ring-white/50',
+    icon: 'text-ink',
   },
   finish: {
-    bg: 'from-amber-300 to-orange-500',
-    ring: 'ring-amber-200/70',
-    icon: 'text-white',
+    bg: 'from-[#ffb347] to-[#ff7a3c]',
+    ring: 'ring-white/50',
+    icon: 'text-ink',
   },
   normal: {
-    bg: 'from-sky-400 to-blue-600',
-    ring: 'ring-sky-300/40',
-    icon: 'text-white/90',
+    bg: 'from-[#5eb8e8] to-[#2f7fb8]',
+    ring: 'ring-white/30',
+    icon: 'text-white',
   },
   question: {
-    bg: 'from-violet-400 to-purple-700',
-    ring: 'ring-violet-300/50',
+    bg: 'from-[#a78bfa] to-[#6d4fd6]',
+    ring: 'ring-white/30',
     icon: 'text-white',
   },
   bonus: {
-    bg: 'from-lime-400 to-green-600',
-    ring: 'ring-lime-300/50',
+    bg: 'from-[#7ddf9a] to-[#2ea86a]',
+    ring: 'ring-white/30',
     icon: 'text-white',
   },
   penalty: {
-    bg: 'from-rose-400 to-red-600',
-    ring: 'ring-rose-300/50',
+    bg: 'from-[#f0718a] to-[#c93655]',
+    ring: 'ring-white/30',
     icon: 'text-white',
   },
   special: {
-    bg: 'from-orange-400 to-amber-600',
-    ring: 'ring-orange-300/50',
+    bg: 'from-[#ff9a5c] to-[#e85a1c]',
+    ring: 'ring-white/30',
     icon: 'text-white',
   },
 }
@@ -153,12 +153,12 @@ export function Tile({ tile, playersHere, isHighlighted }: TileProps) {
           : { scale: 1 }
       }
       transition={{ duration: 0.45 }}
-      className={`relative flex aspect-square flex-col items-center justify-center rounded-xl bg-gradient-to-br ${style.bg} ring-2 ${style.ring} shadow-md`}
+      className={`relative flex aspect-square flex-col items-center justify-center rounded-[0.7rem] bg-gradient-to-br ${style.bg} ring-2 ${style.ring} shadow-[0_4px_0_rgba(0,0,0,0.2)] sm:rounded-xl`}
       title={tile.description ? `${tile.label}: ${tile.description}` : tile.label}
     >
       <Icon className={`h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 ${style.icon}`} strokeWidth={2.5} />
       {(tile.type === 'start' || tile.type === 'finish') && (
-        <span className="font-display mt-0.5 hidden text-[8px] font-bold uppercase tracking-wide text-white/95 sm:block md:text-[10px]">
+        <span className={`font-display mt-0.5 hidden text-[8px] font-extrabold uppercase tracking-wide sm:block md:text-[10px] ${style.icon}`}>
           {tile.label}
         </span>
       )}
@@ -169,7 +169,7 @@ export function Tile({ tile, playersHere, isHighlighted }: TileProps) {
             <motion.span
               key={p.id}
               layoutId={`token-${p.id}`}
-              className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] shadow-lg ring-2 ring-white sm:h-6 sm:w-6 sm:text-xs"
+              className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] shadow-lg ring-2 ring-parchment sm:h-6 sm:w-6 sm:text-xs"
               style={{ backgroundColor: p.color }}
               title={p.name}
             >

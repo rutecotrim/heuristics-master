@@ -20,7 +20,7 @@ function App() {
   ].includes(state.phase)
 
   return (
-    <div className="game-bg relative min-h-full">
+    <div className="game-bg relative min-h-dvh">
       <DesktopBanner visible={!state.bannerDismissed} onDismiss={game.dismissBanner} />
 
       <AnimatePresence mode="wait">
@@ -30,7 +30,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-full"
+            className="min-h-dvh"
           >
             <HomeScreen onPlay={game.startDiceOff} onHowToPlay={game.showHowToPlay} />
           </motion.div>
@@ -42,7 +42,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-full"
+            className="min-h-dvh"
           >
             <HowToPlay onBack={game.goHome} onPlay={game.startDiceOff} />
           </motion.div>
@@ -54,7 +54,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-full"
+            className="min-h-dvh"
           >
             <DiceOff
               state={state}
@@ -70,7 +70,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-full"
+            className="min-h-dvh"
           >
             <GameScreen game={game} />
           </motion.div>
@@ -82,7 +82,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-full"
+            className="min-h-dvh"
           >
             <WinScreen
               winner={state.players[state.winnerId]}

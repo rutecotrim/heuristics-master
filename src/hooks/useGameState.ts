@@ -44,8 +44,8 @@ function createInitialState(): GameState {
   return {
     phase: 'home',
     players: [
-      createPlayer(0, 'Player 1', '🦊', '#3B82F6'),
-      createPlayer(1, 'Player 2', '🦉', '#F97316'),
+      createPlayer(0, 'Player 1', '🦊', '#3ecfcf'),
+      createPlayer(1, 'Player 2', '🦉', '#ff7a3c'),
     ],
     currentPlayerIndex: 0,
     diceValue: null,

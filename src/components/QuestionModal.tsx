@@ -24,36 +24,36 @@ export function QuestionModal({
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-ink/70 p-4 backdrop-blur-md sm:p-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <motion.div
-          initial={{ scale: 0.88, y: 40, opacity: 0 }}
+          initial={{ scale: 0.9, y: 36, opacity: 0 }}
           animate={{ scale: 1, y: 0, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
+          exit={{ scale: 0.92, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 280, damping: 22 }}
-          className="glass-strong relative w-full max-w-2xl overflow-hidden rounded-3xl p-6 shadow-2xl md:p-8"
+          className="panel relative max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.75rem] p-5 shadow-2xl sm:p-8"
         >
           <div className="mb-4 flex flex-wrap items-center gap-2">
-            <span className="font-display rounded-full bg-violet-500/30 px-3 py-1 text-xs font-bold uppercase tracking-wide text-violet-200">
+            <span className="font-display rounded-full bg-felt px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-lime-pop">
               {isBonus ? 'Bonus Quiz' : 'Heuristic Challenge'}
             </span>
             <span
-              className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${
+              className={`rounded-full px-3 py-1 text-xs font-extrabold uppercase ${
                 question.difficulty === 'easy'
-                  ? 'bg-emerald-500/20 text-emerald-200'
+                  ? 'bg-tile-green/20 text-felt'
                   : question.difficulty === 'medium'
-                    ? 'bg-amber-500/20 text-amber-200'
-                    : 'bg-rose-500/20 text-rose-200'
+                    ? 'bg-tangerine/20 text-tangerine-deep'
+                    : 'bg-berry/15 text-berry'
               }`}
             >
               {question.difficulty}
             </span>
           </div>
 
-          <h2 className="font-display text-xl font-bold leading-snug text-white md:text-2xl">
+          <h2 className="font-display text-xl font-extrabold leading-snug text-ink sm:text-2xl">
             {question.question}
           </h2>
 
@@ -62,15 +62,15 @@ export function QuestionModal({
               const isSelected = selectedIndex === i
               const isCorrect = question.correctIndex === i
               let styles =
-                'border-white/15 bg-white/5 hover:border-sky-400/50 hover:bg-sky-500/15'
+                'border-felt/15 bg-white/50 hover:border-tangerine/50 hover:bg-tangerine/10'
 
               if (showExplanation) {
                 if (isCorrect) {
-                  styles = 'border-emerald-400/60 bg-emerald-500/25'
+                  styles = 'border-tile-green/70 bg-tile-green/20'
                 } else if (isSelected && !isCorrect) {
-                  styles = 'border-rose-400/60 bg-rose-500/25'
+                  styles = 'border-berry/70 bg-berry/15'
                 } else {
-                  styles = 'border-white/10 bg-white/[0.03] opacity-60'
+                  styles = 'border-felt/10 bg-felt/5 opacity-55'
                 }
               }
 
@@ -79,22 +79,22 @@ export function QuestionModal({
                   key={answer}
                   type="button"
                   disabled={showExplanation}
-                  whileHover={!showExplanation ? { scale: 1.02, x: 4 } : undefined}
-                  whileTap={!showExplanation ? { scale: 0.98 } : undefined}
+                  whileHover={!showExplanation ? { scale: 1.015, x: 4 } : undefined}
+                  whileTap={!showExplanation ? { scale: 0.985 } : undefined}
                   onClick={() => onAnswer(i)}
                   className={`flex items-start gap-3 rounded-2xl border-2 px-4 py-3.5 text-left transition ${styles}`}
                 >
-                  <span className="font-display flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/10 text-sm font-bold text-sky-100">
+                  <span className="font-display flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-felt text-sm font-extrabold text-lime-pop">
                     {String.fromCharCode(65 + i)}
                   </span>
-                  <span className="flex-1 pt-1 text-sm font-semibold text-white md:text-base">
+                  <span className="flex-1 pt-1 text-sm font-bold text-ink sm:text-base">
                     {answer}
                   </span>
                   {showExplanation && isCorrect && (
-                    <Check className="mt-1 h-5 w-5 shrink-0 text-emerald-300" />
+                    <Check className="mt-1 h-5 w-5 shrink-0 text-tile-green" />
                   )}
                   {showExplanation && isSelected && !isCorrect && (
-                    <X className="mt-1 h-5 w-5 shrink-0 text-rose-300" />
+                    <X className="mt-1 h-5 w-5 shrink-0 text-berry" />
                   )}
                 </motion.button>
               )
@@ -111,24 +111,24 @@ export function QuestionModal({
                 <div
                   className={`mt-5 rounded-2xl p-4 ${
                     lastAnswerCorrect
-                      ? 'bg-emerald-500/15 ring-1 ring-emerald-400/40'
-                      : 'bg-rose-500/15 ring-1 ring-rose-400/40'
+                      ? 'bg-tile-green/15 ring-1 ring-tile-green/40'
+                      : 'bg-berry/10 ring-1 ring-berry/35'
                   }`}
                 >
-                  <p className="font-display text-sm font-bold text-white">
+                  <p className="font-display text-sm font-extrabold text-ink">
                     {lastAnswerCorrect ? '✓ Correct!' : '✗ Not quite'}
                   </p>
-                  <p className="mt-1 text-sm leading-relaxed text-sky-100/85">
+                  <p className="mt-1 text-sm leading-relaxed text-ink-muted">
                     {question.explanation}
                   </p>
                 </div>
 
                 <motion.button
                   type="button"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={onContinue}
-                  className="font-display mt-5 w-full rounded-2xl bg-gradient-to-r from-sky-400 to-blue-600 py-3.5 text-lg font-bold text-white shadow-lg"
+                  className="btn-primary font-display mt-5 w-full rounded-2xl py-3.5 text-lg font-extrabold"
                 >
                   {lastAnswerCorrect
                     ? isBonus

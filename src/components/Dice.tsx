@@ -33,7 +33,7 @@ export function Dice({
   return (
     <div className="flex flex-col items-center gap-2">
       {label && (
-        <span className="font-display text-sm font-semibold text-sky-100/80">{label}</span>
+        <span className="font-display text-sm font-bold text-ink-muted">{label}</span>
       )}
       <motion.button
         type="button"

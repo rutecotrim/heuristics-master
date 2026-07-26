@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Trophy, RotateCcw } from 'lucide-react'
 import type { Player } from '../types/game'
+import { ScreenShell } from './ScreenShell'
 
 interface WinScreenProps {
   winner: Player
@@ -17,9 +18,7 @@ function Confetti() {
       x: Math.random() * 100,
       delay: Math.random() * 0.8,
       duration: 2.5 + Math.random() * 2,
-      color: ['#3b82f6', '#f97316', '#22c55e', '#eab308', '#a855f7', '#f43f5e'][
-        i % 6
-      ],
+      color: ['#ff7a3c', '#c6f15a', '#3ecfcf', '#e8476b', '#ffb347', '#5eb8e8'][i % 6],
       size: 6 + Math.random() * 10,
       rotate: Math.random() * 360,
     })),
@@ -71,28 +70,28 @@ export function WinScreen({ winner, loser, totalTurns, onPlayAgain }: WinScreenP
   if (!show) return null
 
   return (
-    <div className="relative flex min-h-full items-center justify-center overflow-hidden px-6 py-12">
+    <ScreenShell className="relative overflow-hidden">
       <Confetti />
 
       <motion.div
-        initial={{ scale: 0.7, opacity: 0, y: 40 }}
+        initial={{ scale: 0.75, opacity: 0, y: 40 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 180, damping: 16 }}
-        className="glass-strong relative z-10 w-full max-w-lg rounded-3xl p-8 text-center shadow-2xl"
+        className="panel relative z-10 w-full max-w-lg rounded-[1.75rem] p-8 text-center shadow-2xl"
       >
         <motion.div
           animate={{ y: [0, -10, 0], rotate: [0, -5, 5, 0] }}
           transition={{ duration: 2.5, repeat: Infinity }}
-          className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-300 to-orange-500 shadow-[0_16px_50px_rgba(251,146,60,0.55)]"
+          className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-[1.75rem] bg-gradient-to-br from-lime-pop to-tangerine shadow-[0_16px_50px_rgba(255,122,60,0.4)]"
         >
-          <Trophy className="h-12 w-12 text-white" strokeWidth={2.5} />
+          <Trophy className="h-12 w-12 text-ink" strokeWidth={2.5} />
         </motion.div>
 
-        <h1 className="font-display text-4xl font-bold text-white md:text-5xl">
-          🏆 Heuristics Master
+        <h1 className="font-display text-4xl font-extrabold text-ink md:text-5xl">
+          Heuristics Master
         </h1>
-        <p className="mt-3 text-lg text-sky-100/80">
-          <span className="font-display text-2xl font-bold text-amber-300">
+        <p className="mt-3 text-lg font-semibold text-ink-muted">
+          <span className="font-display text-2xl font-extrabold text-tangerine-deep">
             {winner.avatar} {winner.name}
           </span>{' '}
           conquers the board!
@@ -104,30 +103,30 @@ export function WinScreen({ winner, loser, totalTurns, onPlayAgain }: WinScreenP
           <Stat label="Accuracy" value={`${accuracy}%`} />
         </div>
 
-        <p className="mt-4 text-sm text-sky-200/50">
+        <p className="mt-4 text-sm font-semibold text-ink-muted">
           {loser.avatar} {loser.name} answered {loser.correctAnswers}/{loser.totalAnswers} correctly
         </p>
 
         <motion.button
           type="button"
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           onClick={onPlayAgain}
-          className="font-display mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-600 py-4 text-xl font-bold text-white shadow-lg"
+          className="btn-primary font-display mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl py-4 text-xl font-extrabold"
         >
           <RotateCcw className="h-5 w-5" />
           Play Again
         </motion.button>
       </motion.div>
-    </div>
+    </ScreenShell>
   )
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-white/5 px-3 py-3">
-      <p className="text-[10px] uppercase tracking-wide text-sky-200/50">{label}</p>
-      <p className="font-display text-2xl font-bold text-white">{value}</p>
+    <div className="rounded-2xl bg-felt/8 px-3 py-3">
+      <p className="text-[10px] font-bold uppercase tracking-wide text-ink-muted">{label}</p>
+      <p className="font-display text-2xl font-extrabold text-ink">{value}</p>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft, Dice5, HelpCircle, Sparkles, Swords } from 'lucide-react'
+import { ScreenShell } from './ScreenShell'
 
 interface HowToPlayProps {
   onBack: () => void
@@ -31,63 +32,62 @@ const STEPS = [
 
 export function HowToPlay({ onBack, onPlay }: HowToPlayProps) {
   return (
-    <div className="flex min-h-full items-center justify-center px-6 py-12">
+    <ScreenShell>
       <motion.div
         initial={{ opacity: 0, y: 24, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        className="glass-strong w-full max-w-2xl rounded-3xl p-8 shadow-2xl"
+        className="panel w-full max-w-2xl rounded-[1.75rem] p-6 sm:p-8"
       >
         <button
           type="button"
           onClick={onBack}
-          className="mb-4 flex items-center gap-2 text-sm font-semibold text-sky-200/80 transition hover:text-white"
+          className="mb-4 flex items-center gap-2 text-sm font-bold text-ink-muted transition hover:text-ink"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
 
-        <h2 className="font-display text-3xl font-bold text-white">How to Play</h2>
-        <p className="mt-2 text-sky-100/75">
+        <h2 className="font-display text-3xl font-extrabold text-ink sm:text-4xl">How to Play</h2>
+        <p className="mt-2 text-ink-muted">
           A fast local multiplayer race powered by Nielsen&apos;s 10 Usability Heuristics.
         </p>
 
-        <ul className="mt-8 space-y-4">
+        <ul className="mt-7 space-y-3">
           {STEPS.map((step, i) => (
             <motion.li
               key={step.title}
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.08 * i }}
-              className="flex gap-4 rounded-2xl bg-white/5 p-4"
+              className="flex gap-4 rounded-2xl bg-felt/8 p-4"
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-500/25 text-sky-200">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-felt text-lime-pop">
                 <step.icon className="h-6 w-6" />
               </div>
               <div>
-                <p className="font-display text-lg font-semibold text-white">
+                <p className="font-display text-lg font-bold text-ink">
                   {i + 1}. {step.title}
                 </p>
-                <p className="mt-1 text-sm text-sky-100/70">{step.text}</p>
+                <p className="mt-1 text-sm text-ink-muted">{step.text}</p>
               </div>
             </motion.li>
           ))}
         </ul>
 
-        <div className="mt-6 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm text-amber-100/90">
+        <div className="mt-5 rounded-2xl border border-tangerine/30 bg-tangerine/10 p-4 text-sm text-ink">
           <strong className="font-display">Tile legend:</strong> Blue = path · Purple = bonus
           quiz · Green = boost · Red = penalty · Orange = special chaos!
         </div>
 
         <motion.button
           type="button"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={onPlay}
-          className="font-display mt-8 w-full rounded-2xl bg-gradient-to-r from-orange-400 to-coral px-6 py-4 text-lg font-bold text-white shadow-lg"
-          style={{ backgroundImage: 'linear-gradient(90deg, #fb923c, #ff6b4a)' }}
+          className="btn-primary font-display mt-7 w-full rounded-2xl px-6 py-4 text-lg font-extrabold"
         >
           Got it — Let&apos;s Play!
         </motion.button>
       </motion.div>
-    </div>
+    </ScreenShell>
   )
 }

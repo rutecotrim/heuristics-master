@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { BookOpen, Gamepad2, Trophy } from 'lucide-react'
+import { ScreenShell } from './ScreenShell'
 
 interface HomeScreenProps {
   onPlay: () => void
@@ -8,55 +9,50 @@ interface HomeScreenProps {
 
 export function HomeScreen({ onPlay, onHowToPlay }: HomeScreenProps) {
   return (
-    <div className="relative flex min-h-full flex-col items-center justify-center px-6 py-16">
+    <ScreenShell>
       <motion.div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        aria-hidden
-      >
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-white/5"
-            style={{
-              width: 40 + (i % 5) * 28,
-              height: 40 + (i % 5) * 28,
-              left: `${(i * 17) % 100}%`,
-              top: `${(i * 23) % 100}%`,
-            }}
-            animate={{ y: [0, -18, 0], opacity: [0.2, 0.45, 0.2] }}
-            transition={{ duration: 4 + (i % 3), repeat: Infinity, delay: i * 0.2 }}
-          />
-        ))}
-      </motion.div>
-
-      <motion.div
-        initial={{ scale: 0.85, opacity: 0, y: 30 }}
+        initial={{ scale: 0.9, opacity: 0, y: 28 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 18 }}
-        className="relative z-10 w-full max-w-lg text-center"
+        transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+        className="relative w-full max-w-xl text-center"
       >
         <motion.div
-          animate={{ rotate: [0, -8, 8, 0], y: [0, -6, 0] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-300 to-orange-500 shadow-[0_12px_40px_rgba(251,146,60,0.5)]"
+          aria-hidden
+          className="pointer-events-none absolute -inset-x-16 -top-20 -z-10 h-64 rounded-full bg-tangerine/20 blur-3xl"
+          animate={{ opacity: [0.35, 0.6, 0.35], scale: [1, 1.08, 1] }}
+          transition={{ duration: 5, repeat: Infinity }}
+        />
+
+        <motion.div
+          animate={{ y: [0, -8, 0], rotate: [0, -4, 4, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-[1.75rem] bg-gradient-to-br from-lime-pop to-aqua shadow-[0_16px_40px_rgba(198,241,90,0.35)]"
         >
-          <Trophy className="h-10 w-10 text-white" strokeWidth={2.5} />
+          <Trophy className="h-11 w-11 text-ink" strokeWidth={2.4} />
         </motion.div>
 
-        <h1 className="font-display text-5xl font-bold tracking-tight text-white drop-shadow-lg md:text-6xl">
-          Heuristics Master
+        <p className="font-display mb-3 text-xs font-bold uppercase tracking-[0.22em] text-lime-pop">
+          Local multiplayer · UX race
+        </p>
+
+        <h1 className="font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-parchment sm:text-6xl md:text-7xl">
+          Heuristics
+          <span className="block bg-gradient-to-r from-tangerine via-lime-pop to-aqua bg-clip-text text-transparent">
+            Master
+          </span>
         </h1>
-        <p className="mt-4 text-lg font-semibold text-sky-100/90 md:text-xl">
+
+        <p className="mx-auto mt-5 max-w-md text-base font-semibold text-parchment/75 sm:text-lg">
           Master Nielsen&apos;s Heuristics before your opponent.
         </p>
 
-        <div className="mt-10 flex flex-col gap-4">
+        <div className="mt-10 flex flex-col gap-3 sm:gap-4">
           <motion.button
             type="button"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
             onClick={onPlay}
-            className="font-display flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-600 px-8 py-4 text-xl font-bold text-white shadow-[0_10px_30px_rgba(59,130,246,0.45)]"
+            className="btn-primary font-display flex items-center justify-center gap-3 rounded-2xl px-8 py-4 text-lg font-extrabold sm:text-xl"
           >
             <Gamepad2 className="h-6 w-6" />
             Play Local Multiplayer
@@ -64,18 +60,20 @@ export function HomeScreen({ onPlay, onHowToPlay }: HomeScreenProps) {
 
           <motion.button
             type="button"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={onHowToPlay}
-            className="font-display flex items-center justify-center gap-3 rounded-2xl glass px-8 py-3.5 text-lg font-bold text-white"
+            className="btn-secondary font-display flex items-center justify-center gap-3 rounded-2xl px-8 py-3.5 text-base font-bold sm:text-lg"
           >
             <BookOpen className="h-5 w-5" />
             How to Play
           </motion.button>
         </div>
 
-        <p className="mt-8 text-sm text-sky-200/60">2 players · Same computer · No signup</p>
+        <p className="mt-8 text-sm font-medium text-parchment/45">
+          2 players · Same computer · No signup
+        </p>
       </motion.div>
-    </div>
+    </ScreenShell>
   )
 }
