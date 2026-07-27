@@ -160,8 +160,9 @@ export function DiceOff({
             const idx = i as PlayerId
             const rolled = rolls[idx] ?? null
             const isMine = !isOnline || myPlayerIndex === idx
-            const canRoll = isMine && rolled === null && !state.diceOff.rolling
-            const isRolling = state.diceOff.rolling && rolled === null && isMine
+            const canRoll =
+              isMine && rolled === null && state.diceOff.rollingIndex === null
+            const isRolling = state.diceOff.rollingIndex === idx
 
             return (
               <motion.div

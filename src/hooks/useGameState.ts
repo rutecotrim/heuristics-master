@@ -45,7 +45,7 @@ function createInitialState(): GameState {
     players,
     currentPlayerIndex: 0,
     diceValue: null,
-    diceOff: { rolls: emptyRolls(players.length), rolling: false },
+    diceOff: { rolls: emptyRolls(players.length), rollingIndex: null },
     currentQuestion: null,
     lastAnswerCorrect: null,
     showExplanation: false,
@@ -68,7 +68,7 @@ type Action =
   | { type: 'REMOVE_PLAYER'; index: PlayerId }
   | { type: 'START_DICE_OFF' }
   | { type: 'SET_DICE_OFF_ROLL'; playerIndex: PlayerId; value: number }
-  | { type: 'SET_DICE_OFF_ROLLING'; rolling: boolean }
+  | { type: 'SET_DICE_OFF_ROLLING'; playerIndex: PlayerId }
   | { type: 'BEGIN_GAME'; starter: PlayerId }
   | { type: 'RESET_DICE_OFF' }
   | { type: 'START_QUESTION'; isBonus?: boolean }
@@ -120,7 +120,7 @@ function reducer(state: GameState, action: Action): GameState {
       return {
         ...state,
         players: reindexPlayers(action.players),
-        diceOff: { rolls: emptyRolls(action.players.length), rolling: false },
+        diceOff: { rolls: emptyRolls(action.players.length), rollingIndex: null },
         currentPlayerIndex: 0,
         winnerId: null,
       }
@@ -131,7 +131,7 @@ function reducer(state: GameState, action: Action): GameState {
       return {
         ...state,
         players,
-        diceOff: { rolls: emptyRolls(players.length), rolling: false },
+        diceOff: { rolls: emptyRolls(players.length), rollingIndex: null },
       }
     }
 
@@ -143,7 +143,7 @@ function reducer(state: GameState, action: Action): GameState {
       return {
         ...state,
         players,
-        diceOff: { rolls: emptyRolls(players.length), rolling: false },
+        diceOff: { rolls: emptyRolls(players.length), rollingIndex: null },
         currentPlayerIndex: 0,
       }
     }
@@ -156,7 +156,7 @@ function reducer(state: GameState, action: Action): GameState {
         phase: 'dice_off',
         currentPlayerIndex: 0,
         diceValue: null,
-        diceOff: { rolls: emptyRolls(players.length), rolling: false },
+        diceOff: { rolls: emptyRolls(players.length), rollingIndex: null },
         currentQuestion: null,
         lastAnswerCorrect: null,
         showExplanation: false,
@@ -173,16 +173,16 @@ function reducer(state: GameState, action: Action): GameState {
     case 'RESET_DICE_OFF':
       return {
         ...state,
-        diceOff: { rolls: emptyRolls(state.players.length), rolling: false },
+        diceOff: { rolls: emptyRolls(state.players.length), rollingIndex: null },
       }
 
     case 'SET_DICE_OFF_ROLLING':
-      return { ...state, diceOff: { ...state.diceOff, rolling: action.rolling } }
+      return { ...state, diceOff: { ...state.diceOff, rollingIndex: action.playerIndex } }
 
     case 'SET_DICE_OFF_ROLL': {
       const rolls = [...state.diceOff.rolls]
       rolls[action.playerIndex] = action.value
-      return { ...state, diceOff: { ...state.diceOff, rolls, rolling: false } }
+      return { ...state, diceOff: { ...state.diceOff, rolls, rollingIndex: null } }
     }
 
     case 'BEGIN_GAME':
@@ -190,7 +190,7 @@ function reducer(state: GameState, action: Action): GameState {
         ...state,
         phase: 'playing',
         currentPlayerIndex: action.starter,
-        diceOff: { rolls: emptyRolls(state.players.length), rolling: false },
+        diceOff: { rolls: emptyRolls(state.players.length), rollingIndex: null },
       }
 
     case 'START_QUESTION': {
@@ -421,7 +421,7 @@ function reducer(state: GameState, action: Action): GameState {
         bannerDismissed: state.bannerDismissed,
         phase: 'online_lobby',
         players: [createPlayer(0)],
-        diceOff: { rolls: [null], rolling: false },
+        diceOff: { rolls: [null], rollingIndex: null },
       }
 
     default:
@@ -499,9 +499,9 @@ export function useGameState() {
 
   const rollDiceOff = useCallback(
     async (playerIndex: PlayerId) => {
-      if (state.diceOff.rolling) return
+      if (state.diceOff.rollingIndex !== null) return
       if (state.diceOff.rolls[playerIndex] !== null) return
-      dispatch({ type: 'SET_DICE_OFF_ROLLING', rolling: true })
+      dispatch({ type: 'SET_DICE_OFF_ROLLING', playerIndex })
       playSound('dice')
       await delay(900)
       const value = rollDice()

@@ -82,7 +82,7 @@ export interface GameState {
   diceValue: number | null
   diceOff: {
     rolls: (number | null)[]
-    rolling: boolean
+    rollingIndex: PlayerId | null
   }
   currentQuestion: Question | null
   lastAnswerCorrect: boolean | null
