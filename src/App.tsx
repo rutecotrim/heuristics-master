@@ -57,6 +57,13 @@ function App() {
     if (state.phase === 'win') playSound('win')
   }, [state.phase])
 
+  useEffect(() => {
+    const modalVisible =
+      leaveOpen || state.phase === 'question' || state.phase === 'tile_effect'
+    document.body.classList.toggle('modal-open', modalVisible)
+    return () => document.body.classList.remove('modal-open')
+  }, [leaveOpen, state.phase])
+
   const requestLeave = () => setLeaveOpen(true)
 
   const confirmLeave = () => {

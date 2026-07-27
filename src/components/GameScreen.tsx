@@ -219,72 +219,77 @@ export function GameScreen({
         <div className="flex min-w-0 flex-1 flex-col gap-4">
           <Board players={displayPlayers} highlightIndex={highlightIndex} />
 
-          <AnimatePresence mode="wait">
-            {state.phase === 'playing' && (
-              <motion.div
-                key="ready"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                className="flex justify-center"
-              >
-                <div className="panel flex w-full max-w-xl flex-col items-center gap-4 rounded-[1.5rem] px-5 py-4 sm:flex-row sm:justify-between">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="flex h-12 w-12 items-center justify-center rounded-2xl text-2xl"
-                      style={{
-                        backgroundColor: `${currentPlayer.color}44`,
-                        border: `2px solid ${currentPlayer.color}`,
-                      }}
-                    >
-                      {currentPlayer.avatar}
-                    </span>
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
-                        Up next
-                      </p>
-                      <p className="font-display text-lg font-extrabold text-ink">
-                        {currentPlayer.name}
-                        {isOnline && isMyTurn ? ' (you)' : ''}
-                      </p>
+          {/* Fixed-height action slot so opening a modal does not reflow the board */}
+          <div className="relative flex min-h-[5.75rem] items-center justify-center sm:min-h-[6.25rem]">
+            <AnimatePresence mode="wait">
+              {state.phase === 'playing' && (
+                <motion.div
+                  key="ready"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute inset-x-0 flex justify-center"
+                >
+                  <div className="panel flex w-full max-w-xl flex-col items-center gap-4 rounded-[1.5rem] px-5 py-4 sm:flex-row sm:justify-between">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="flex h-12 w-12 items-center justify-center rounded-2xl text-2xl"
+                        style={{
+                          backgroundColor: `${currentPlayer.color}44`,
+                          border: `2px solid ${currentPlayer.color}`,
+                        }}
+                      >
+                        {currentPlayer.avatar}
+                      </span>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
+                          Up next
+                        </p>
+                        <p className="font-display text-lg font-extrabold text-ink">
+                          {currentPlayer.name}
+                          {isOnline && isMyTurn ? ' (you)' : ''}
+                        </p>
+                      </div>
                     </div>
+                    {isMyTurn ? (
+                      <motion.button
+                        type="button"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={beginTurn}
+                        className="btn-primary font-display w-full rounded-xl px-5 py-3 text-sm font-extrabold sm:w-auto sm:text-base"
+                      >
+                        Ready for question
+                      </motion.button>
+                    ) : (
+                      <p className="font-display text-sm font-bold text-ink-muted">
+                        Waiting for {currentPlayer.name}…
+                      </p>
+                    )}
                   </div>
-                  {isMyTurn ? (
-                    <motion.button
-                      type="button"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={beginTurn}
-                      className="btn-primary font-display w-full rounded-xl px-5 py-3 text-sm font-extrabold sm:w-auto sm:text-base"
-                    >
-                      Ready for question
-                    </motion.button>
-                  ) : (
-                    <p className="font-display text-sm font-bold text-ink-muted">
-                      Waiting for {currentPlayer.name}…
-                    </p>
-                  )}
-                </div>
-              </motion.div>
-            )}
+                </motion.div>
+              )}
 
-            {(state.phase === 'dice_roll' || state.phase === 'moving') && (
-              <motion.div
-                key="dice"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                className="flex justify-center"
-              >
-                <div className="panel-dark flex items-center gap-4 rounded-2xl px-5 py-3">
-                  <span className="font-display text-sm font-bold text-parchment">
-                    {rolling ? 'Rolling…' : displayDice ? `Moving ${displayDice}!` : 'Dice'}
-                  </span>
-                  <Dice value={displayDice} rolling={rolling} size="md" />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              {(state.phase === 'dice_roll' || state.phase === 'moving') && (
+                <motion.div
+                  key="dice"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute inset-x-0 flex justify-center"
+                >
+                  <div className="panel-dark flex items-center gap-4 rounded-2xl px-5 py-3">
+                    <span className="font-display text-sm font-bold text-parchment">
+                      {rolling ? 'Rolling…' : displayDice ? `Moving ${displayDice}!` : 'Dice'}
+                    </span>
+                    <Dice value={displayDice} rolling={rolling} size="md" />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
 

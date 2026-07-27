@@ -32,7 +32,7 @@ export function QuestionModal({
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-ink/70 p-4 backdrop-blur-md sm:p-6"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-ink/75 p-4 sm:p-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
