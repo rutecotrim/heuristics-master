@@ -3,10 +3,15 @@ import { Monitor, X } from 'lucide-react'
 
 interface DesktopBannerProps {
   visible: boolean
-  onDismiss: () => void
+  dismissible?: boolean
+  onDismiss?: () => void
 }
 
-export function DesktopBanner({ visible, onDismiss }: DesktopBannerProps) {
+export function DesktopBanner({
+  visible,
+  dismissible = false,
+  onDismiss,
+}: DesktopBannerProps) {
   return (
     <AnimatePresence>
       {visible && (
@@ -30,14 +35,16 @@ export function DesktopBanner({ visible, onDismiss }: DesktopBannerProps) {
                 experience.
               </p>
             </div>
-            <button
-              type="button"
-              onClick={onDismiss}
-              className="rounded-lg p-1.5 text-parchment/60 transition hover:bg-white/10 hover:text-parchment"
-              aria-label="Dismiss banner"
-            >
-              <X className="h-4 w-4" />
-            </button>
+            {dismissible && onDismiss && (
+              <button
+                type="button"
+                onClick={onDismiss}
+                className="rounded-lg p-1.5 text-parchment/60 transition hover:bg-white/10 hover:text-parchment"
+                aria-label="Hide banner"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
           </div>
         </motion.div>
       )}

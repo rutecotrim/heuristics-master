@@ -60,7 +60,16 @@ function App() {
 
   return (
     <div className="game-bg relative min-h-dvh">
-      <DesktopBanner visible={!state.bannerDismissed} onDismiss={game.dismissBanner} />
+      <DesktopBanner
+        visible={
+          state.phase === 'home' ||
+          state.phase === 'how_to_play' ||
+          state.phase === 'online_lobby' ||
+          !state.bannerDismissed
+        }
+        dismissible={matchInProgress}
+        onDismiss={game.dismissBanner}
+      />
 
       <AnimatePresence mode="wait">
         {state.phase === 'home' && (

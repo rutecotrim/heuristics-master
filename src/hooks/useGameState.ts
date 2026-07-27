@@ -26,19 +26,18 @@ import { playSound } from '../utils/sound'
 
 const STORAGE_KEY = 'heuristics-master-banner'
 
-function loadBannerDismissed(): boolean {
-  try {
-    return localStorage.getItem(STORAGE_KEY) === '1'
-  } catch {
-    return false
-  }
-}
-
 function emptyRolls(count: number): (number | null)[] {
   return Array.from({ length: count }, () => null)
 }
 
 function createInitialState(): GameState {
+  // Clear legacy permanent dismiss so the home toast always returns.
+  try {
+    localStorage.removeItem(STORAGE_KEY)
+  } catch {
+    /* ignore */
+  }
+
   const players = createPlayers(2)
   return {
     phase: 'home',
@@ -51,7 +50,7 @@ function createInitialState(): GameState {
     showExplanation: false,
     pendingEffect: null,
     usedQuestionIds: [],
-    bannerDismissed: loadBannerDismissed(),
+    bannerDismissed: false,
     totalTurns: 0,
     winnerId: null,
     isAnimating: false,
@@ -106,14 +105,18 @@ function reindexPlayers(players: Player[]): Player[] {
 function reducer(state: GameState, action: Action): GameState {
   switch (action.type) {
     case 'SET_PHASE':
-      return { ...state, phase: action.phase }
+      return {
+        ...state,
+        phase: action.phase,
+        bannerDismissed:
+          action.phase === 'home' ||
+          action.phase === 'how_to_play' ||
+          action.phase === 'online_lobby'
+            ? false
+            : state.bannerDismissed,
+      }
 
     case 'DISMISS_BANNER':
-      try {
-        localStorage.setItem(STORAGE_KEY, '1')
-      } catch {
-        /* ignore */
-      }
       return { ...state, bannerDismissed: true }
 
     case 'SETUP_PLAYERS':
@@ -395,7 +398,6 @@ function reducer(state: GameState, action: Action): GameState {
     case 'PLAY_AGAIN':
       return {
         ...createInitialState(),
-        bannerDismissed: state.bannerDismissed,
         phase: 'home',
       }
 
