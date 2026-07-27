@@ -7,9 +7,11 @@ import { GameScreen } from './components/GameScreen'
 import { HomeScreen } from './components/HomeScreen'
 import { HowToPlay } from './components/HowToPlay'
 import { OnlineLobby } from './components/OnlineLobby'
+import { SoundToggle } from './components/SoundToggle'
 import { WinScreen } from './components/WinScreen'
 import { useGameState } from './hooks/useGameState'
 import { useNetworkBridge } from './hooks/useNetworkBridge'
+import { playSound, unlockSound } from './utils/sound'
 
 function App() {
   const game = useGameState()
@@ -39,10 +41,27 @@ function App() {
     return () => window.removeEventListener('beforeunload', onBeforeUnload)
   }, [matchInProgress])
 
+  useEffect(() => {
+    const unlock = () => {
+      void unlockSound()
+    }
+    window.addEventListener('pointerdown', unlock, { once: true })
+    window.addEventListener('keydown', unlock, { once: true })
+    return () => {
+      window.removeEventListener('pointerdown', unlock)
+      window.removeEventListener('keydown', unlock)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (state.phase === 'win') playSound('win')
+  }, [state.phase])
+
   const requestLeave = () => setLeaveOpen(true)
 
   const confirmLeave = () => {
     setLeaveOpen(false)
+    playSound('leave')
     if (net.isOnline) net.leaveOnline()
     else game.playAgain()
   }
@@ -60,6 +79,12 @@ function App() {
 
   return (
     <div className="game-bg relative min-h-dvh">
+      <div className="pointer-events-none fixed right-4 top-4 z-[110] sm:right-5 sm:top-5">
+        <div className="pointer-events-auto">
+          <SoundToggle />
+        </div>
+      </div>
+
       <DesktopBanner
         visible={
           state.phase === 'home' ||

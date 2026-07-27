@@ -4,7 +4,6 @@ import { LogOut } from 'lucide-react'
 import type { GameController } from '../hooks/useGameState'
 import { applyMove, rollDice } from '../engine/tileEngine'
 import type { PlayerId } from '../types/game'
-import { playSound } from '../utils/sound'
 import { Board } from './Board'
 import { Dice } from './Dice'
 import { PlayerPanel } from './PlayerPanel'
@@ -79,7 +78,6 @@ export function GameScreen({
       ;(async () => {
         setRolling(true)
         setDisplayDice(null)
-        playSound('dice')
         await new Promise((r) => setTimeout(r, 1000))
         if (cancelled || generation !== rollGeneration.current) return
         const value = rollDice()

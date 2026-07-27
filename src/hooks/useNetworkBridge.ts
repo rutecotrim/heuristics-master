@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPlayer, defaultNameFor, MAX_PLAYERS, MIN_PLAYERS } from '../data/players'
+import { isCorrectAnswer } from '../engine/questionEngine'
 import { rollDice } from '../engine/tileEngine'
 import { PeerRoomSession, type SessionStatus } from '../net/peerSession'
 import {
@@ -47,6 +48,7 @@ export function useNetworkBridge(game: GameController) {
 
       switch (intent.type) {
         case 'dice_off_roll':
+          playSound('dice')
           g.dispatchAction({
             type: 'SET_DICE_OFF_ROLL',
             playerIndex: seat,
@@ -55,19 +57,23 @@ export function useNetworkBridge(game: GameController) {
           break
         case 'ready':
           if (g.state.currentPlayerIndex !== seat) return
-          playSound('whoosh')
+          playSound('question')
           g.dispatchAction({ type: 'START_QUESTION' })
           break
         case 'answer':
           if (g.state.currentPlayerIndex !== seat) return
-          playSound('click')
+          if (g.state.currentQuestion) {
+            playSound(
+              isCorrectAnswer(g.state.currentQuestion, intent.answerIndex)
+                ? 'correct'
+                : 'wrong',
+            )
+          }
           g.dispatchAction({ type: 'ANSWER', answerIndex: intent.answerIndex })
           break
         case 'continue': {
           if (g.state.currentPlayerIndex !== seat) return
           const s = g.state
-          if (s.lastAnswerCorrect) playSound('correct')
-          else playSound('wrong')
           if (s.isBonusQuestion) {
             g.dispatchAction({
               type: 'AFTER_BONUS_QUESTION',
@@ -78,12 +84,29 @@ export function useNetworkBridge(game: GameController) {
           }
           break
         }
-        case 'ack_effect':
+        case 'ack_effect': {
           if (g.state.currentPlayerIndex !== seat) return
-          playSound('special')
+          const effect = g.state.pendingEffect?.effect
+          const rewardEffects = new Set([
+            'bonus',
+            'lucky_ux',
+            'fast_track',
+            'auto_save',
+            'question_bonus',
+          ])
+          const warnEffects = new Set([
+            'penalty',
+            'go_back_3',
+            'go_back_5',
+            'ux_disaster',
+            'cognitive_overload',
+          ])
+          if (effect && rewardEffects.has(effect)) playSound('reward')
+          else if (effect && warnEffects.has(effect)) playSound('warn')
+          else playSound('info')
           g.dispatchAction({ type: 'RESOLVE_EFFECT' })
           break
-        case 'set_name': {
+        }        case 'set_name': {
           const trimmed = intent.name.trim().slice(0, 16) || defaultNameFor(seat)
           g.setPlayerName(seat, trimmed)
           break

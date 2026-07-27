@@ -489,12 +489,12 @@ export function useGameState() {
   }, [])
 
   const startDiceOff = useCallback(() => {
-    playSound('click')
+    playSound('start')
     dispatch({ type: 'START_DICE_OFF' })
   }, [])
 
   const startLocalGame = useCallback((count: PlayerCount) => {
-    playSound('click')
+    playSound('start')
     dispatch({ type: 'SETUP_PLAYERS', players: createPlayers(count) })
     dispatch({ type: 'START_DICE_OFF' })
   }, [])
@@ -516,29 +516,32 @@ export function useGameState() {
     const result = pickDiceOffWinner(state.diceOff.rolls)
     if (result === null) return
     if (result === 'tie') {
+      playSound('retry')
       dispatch({ type: 'RESET_DICE_OFF' })
       return
     }
+    playSound('start')
     dispatch({ type: 'BEGIN_GAME', starter: result })
   }, [state.diceOff.rolls])
 
   const beginTurn = useCallback(() => {
-    playSound('whoosh')
+    playSound('question')
     dispatch({ type: 'START_QUESTION' })
   }, [])
 
-  const answerQuestion = useCallback((answerIndex: number) => {
-    playSound('click')
-    dispatch({ type: 'ANSWER', answerIndex })
-  }, [])
+  const answerQuestion = useCallback(
+    (answerIndex: number) => {
+      if (state.currentQuestion) {
+        playSound(
+          isCorrectAnswer(state.currentQuestion, answerIndex) ? 'correct' : 'wrong',
+        )
+      }
+      dispatch({ type: 'ANSWER', answerIndex })
+    },
+    [state.currentQuestion],
+  )
 
   const continueAfterExplanation = useCallback(() => {
-    if (state.lastAnswerCorrect) {
-      playSound('correct')
-    } else {
-      playSound('wrong')
-    }
-
     if (state.isBonusQuestion) {
       dispatch({
         type: 'AFTER_BONUS_QUESTION',
@@ -570,9 +573,26 @@ export function useGameState() {
   }, [])
 
   const acknowledgeEffect = useCallback(() => {
-    playSound('special')
+    const effect = state.pendingEffect?.effect
+    const rewardEffects = new Set([
+      'bonus',
+      'lucky_ux',
+      'fast_track',
+      'auto_save',
+      'question_bonus',
+    ])
+    const warnEffects = new Set([
+      'penalty',
+      'go_back_3',
+      'go_back_5',
+      'ux_disaster',
+      'cognitive_overload',
+    ])
+    if (effect && rewardEffects.has(effect)) playSound('reward')
+    else if (effect && warnEffects.has(effect)) playSound('warn')
+    else playSound('info')
     dispatch({ type: 'RESOLVE_EFFECT' })
-  }, [])
+  }, [state.pendingEffect])
 
   const playAgain = useCallback(() => {
     dispatch({ type: 'PLAY_AGAIN' })
