@@ -44,36 +44,37 @@ export function QuestionModal({
           transition={{ type: 'spring', stiffness: 280, damping: 22 }}
           className="panel relative max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.75rem] p-5 shadow-2xl sm:p-8"
         >
-          <button
-            type="button"
-            onClick={onRequestLeave}
-            className="absolute right-4 top-4 z-10 rounded-xl p-2 text-ink-muted transition hover:bg-berry/10 hover:text-berry sm:right-5 sm:top-5"
-            aria-label="End game"
-          >
-            <X className="h-5 w-5" />
-          </button>
-
-          <div
-            className="mb-5 flex items-center gap-3 rounded-2xl px-3 py-2.5 pr-12"
-            style={{ backgroundColor: `${player.color}22`, border: `2px solid ${player.color}` }}
-          >
-            <span
-              className="flex h-11 w-11 items-center justify-center rounded-xl text-2xl"
-              style={{ backgroundColor: `${player.color}55` }}
+          <div className="mb-5 flex items-center gap-2 sm:gap-3">
+            <div
+              className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl px-3 py-2.5"
+              style={{ backgroundColor: `${player.color}22`, border: `2px solid ${player.color}` }}
             >
-              {player.avatar}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
-                Now answering
-              </p>
-              <p className="font-display truncate text-lg font-extrabold text-ink">
-                {isYourTurn ? 'Your turn' : `${player.name}'s turn`}
-              </p>
+              <span
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl"
+                style={{ backgroundColor: `${player.color}55` }}
+              >
+                {player.avatar}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
+                  Now answering
+                </p>
+                <p className="font-display truncate text-lg font-extrabold text-ink">
+                  {isYourTurn ? 'Your turn' : `${player.name}'s turn`}
+                </p>
+              </div>
+              <span className="font-display hidden shrink-0 rounded-full bg-ink px-3 py-1 text-[10px] font-extrabold uppercase tracking-wide text-parchment sm:inline">
+                {isBonus ? 'Bonus' : 'Question'}
+              </span>
             </div>
-            <span className="font-display rounded-full bg-ink px-3 py-1 text-[10px] font-extrabold uppercase tracking-wide text-parchment">
-              {isBonus ? 'Bonus' : 'Question'}
-            </span>
+            <button
+              type="button"
+              onClick={onRequestLeave}
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-felt/15 bg-white/60 text-ink-muted transition hover:border-berry/40 hover:bg-berry/10 hover:text-berry"
+              aria-label="End game"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
 
           <div className="mb-4 flex flex-wrap items-center gap-2">
