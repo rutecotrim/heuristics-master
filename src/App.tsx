@@ -1,237 +1,147 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { ConfirmLeaveModal } from './components/ConfirmLeaveModal'
-import { DesktopBanner } from './components/DesktopBanner'
-import { DiceOff } from './components/DiceOff'
-import { GameScreen } from './components/GameScreen'
-import { HomeScreen } from './components/HomeScreen'
-import { HowToPlay } from './components/HowToPlay'
-import { OnlineLobby } from './components/OnlineLobby'
-import { SoundToggle } from './components/SoundToggle'
-import { WinScreen } from './components/WinScreen'
-import { useGameState } from './hooks/useGameState'
-import { useNetworkBridge } from './hooks/useNetworkBridge'
-import { playSound, unlockSound } from './utils/sound'
+import { motion } from 'framer-motion'
+import { ExternalLink, FolderTree, Gamepad2, GitBranch, Layers } from 'lucide-react'
 
-function App() {
-  const game = useGameState()
-  const net = useNetworkBridge(game)
-  const { state } = game
-  const [leaveOpen, setLeaveOpen] = useState(false)
+const LAYERS = [
+  {
+    name: 'UI',
+    path: 'src/components',
+    detail: 'Screens and widgets: board, modals, lobby, panels.',
+  },
+  {
+    name: 'State',
+    path: 'src/hooks',
+    detail: 'Game reducer and online bridge (host authority).',
+  },
+  {
+    name: 'Domain',
+    path: 'src/engine',
+    detail: 'Questions, dice, tile effects, movement rules.',
+  },
+  {
+    name: 'Network',
+    path: 'src/net',
+    detail: 'PeerJS rooms, protocol messages, room codes.',
+  },
+  {
+    name: 'Data',
+    path: 'src/data',
+    detail: 'Board layout, player presets, question bank (100).',
+  },
+  {
+    name: 'Types',
+    path: 'src/types',
+    detail: 'Shared TypeScript contracts for game state.',
+  },
+]
 
-  const inGamePhases = [
-    'playing',
-    'question',
-    'dice_roll',
-    'moving',
-    'tile_effect',
-  ].includes(state.phase)
-
-  const matchInProgress = !['home', 'how_to_play', 'online_lobby'].includes(state.phase)
-
-  useEffect(() => {
-    if (!matchInProgress) return
-
-    const onBeforeUnload = (event: BeforeUnloadEvent) => {
-      event.preventDefault()
-      event.returnValue = ''
-    }
-
-    window.addEventListener('beforeunload', onBeforeUnload)
-    return () => window.removeEventListener('beforeunload', onBeforeUnload)
-  }, [matchInProgress])
-
-  useEffect(() => {
-    const unlock = () => {
-      void unlockSound()
-    }
-    window.addEventListener('pointerdown', unlock, { once: true })
-    window.addEventListener('keydown', unlock, { once: true })
-    return () => {
-      window.removeEventListener('pointerdown', unlock)
-      window.removeEventListener('keydown', unlock)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (state.phase === 'win') playSound('win')
-  }, [state.phase])
-
-  const requestLeave = () => setLeaveOpen(true)
-
-  const confirmLeave = () => {
-    setLeaveOpen(false)
-    playSound('leave')
-    if (net.isOnline) net.leaveOnline()
-    else game.playAgain()
-  }
-
-  const gameForUi = {
-    ...game,
-    beginTurn: net.beginTurn,
-    answerQuestion: net.answerQuestion,
-    continueAfterExplanation: net.continueAfterExplanation,
-    acknowledgeEffect: net.acknowledgeEffect,
-    commitDiceRoll: net.commitDiceRoll,
-    completeMove: net.completeMove,
-    setPlayerName: net.setPlayerName,
-  }
-
+export default function App() {
   return (
-    <div className="game-bg relative min-h-dvh">
-      <div className="pointer-events-none fixed right-4 top-4 z-[110] sm:right-5 sm:top-5">
-        <div className="pointer-events-auto">
-          <SoundToggle />
-        </div>
+    <div className="game-bg min-h-dvh px-4 py-10 text-parchment sm:px-8 sm:py-14">
+      <div className="mx-auto w-full max-w-3xl">
+        <motion.header
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-10"
+        >
+          <p className="font-display mb-3 text-xs font-bold uppercase tracking-[0.22em] text-lime-pop">
+            Project architecture
+          </p>
+          <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+            Heuristics Master
+          </h1>
+          <p className="mt-4 max-w-2xl text-base font-semibold text-parchment/75 sm:text-lg">
+            Educational board game about Nielsen&apos;s usability heuristics. This branch (
+            <code className="text-aqua">main</code>) documents the app structure. The playable game
+            lives on <code className="text-aqua">game</code>.
+          </p>
+        </motion.header>
+
+        <motion.section
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="mb-8 grid gap-3 sm:grid-cols-2"
+        >
+          <a
+            href="https://rutecotrim.github.io/heuristics-master/"
+            target="_blank"
+            rel="noreferrer"
+            className="panel flex items-center gap-3 rounded-2xl p-5 text-ink transition hover:scale-[1.01]"
+          >
+            <Gamepad2 className="h-6 w-6 text-tangerine-deep" />
+            <div className="min-w-0 flex-1">
+              <p className="font-display font-extrabold">Play live demo</p>
+              <p className="text-sm font-semibold text-ink-muted">GitHub Pages build from game</p>
+            </div>
+            <ExternalLink className="h-4 w-4 text-ink-muted" />
+          </a>
+          <a
+            href="https://github.com/rutecotrim/heuristics-master/tree/game"
+            target="_blank"
+            rel="noreferrer"
+            className="panel flex items-center gap-3 rounded-2xl p-5 text-ink transition hover:scale-[1.01]"
+          >
+            <GitBranch className="h-6 w-6 text-felt" />
+            <div className="min-w-0 flex-1">
+              <p className="font-display font-extrabold">Browse game branch</p>
+              <p className="text-sm font-semibold text-ink-muted">Full implementation source</p>
+            </div>
+            <ExternalLink className="h-4 w-4 text-ink-muted" />
+          </a>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="panel mb-8 rounded-[1.75rem] p-6 text-ink sm:p-8"
+        >
+          <div className="mb-5 flex items-center gap-2">
+            <Layers className="h-5 w-5 text-tangerine-deep" />
+            <h2 className="font-display text-xl font-extrabold">Layered architecture</h2>
+          </div>
+          <div className="space-y-3">
+            {LAYERS.map((layer) => (
+              <div
+                key={layer.path}
+                className="flex flex-col gap-1 rounded-xl bg-felt/8 px-4 py-3 sm:flex-row sm:items-center sm:gap-4"
+              >
+                <p className="font-display w-24 shrink-0 text-sm font-extrabold text-tangerine-deep">
+                  {layer.name}
+                </p>
+                <code className="shrink-0 text-xs font-bold text-felt">{layer.path}</code>
+                <p className="text-sm font-semibold text-ink-muted sm:flex-1">{layer.detail}</p>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="panel rounded-[1.75rem] p-6 text-ink sm:p-8"
+        >
+          <div className="mb-4 flex items-center gap-2">
+            <FolderTree className="h-5 w-5 text-tangerine-deep" />
+            <h2 className="font-display text-xl font-extrabold">Branch strategy</h2>
+          </div>
+          <ul className="space-y-2 text-sm font-semibold text-ink-muted">
+            <li>
+              <span className="font-display text-ink">main</span> — project overview and architecture
+              entry point for reviewers.
+            </li>
+            <li>
+              <span className="font-display text-ink">game</span> — complete playable app (UI, engine,
+              PeerJS multiplayer, sound, deploy).
+            </li>
+            <li>
+              GitHub Pages builds from <span className="font-display text-ink">game</span> so the live
+              demo always matches the product branch.
+            </li>
+          </ul>
+        </motion.section>
       </div>
-
-      <DesktopBanner
-        visible={
-          state.phase === 'home' ||
-          state.phase === 'how_to_play' ||
-          state.phase === 'online_lobby' ||
-          !state.bannerDismissed
-        }
-        dismissible={matchInProgress}
-        onDismiss={game.dismissBanner}
-      />
-
-      <AnimatePresence mode="wait">
-        {state.phase === 'home' && (
-          <motion.div
-            key="home"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="min-h-dvh"
-          >
-            <HomeScreen
-              onPlayLocal={(count) => {
-                net.setPlayModeLocal()
-                game.startLocalGame(count)
-              }}
-              onPlayOnline={() => {
-                net.cancelSession()
-                game.openOnlineLobby()
-              }}
-              onHowToPlay={game.showHowToPlay}
-            />
-          </motion.div>
-        )}
-
-        {state.phase === 'how_to_play' && (
-          <motion.div
-            key="howto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="min-h-dvh"
-          >
-            <HowToPlay
-              onBack={game.goHome}
-              onPlay={() => {
-                net.setPlayModeLocal()
-                game.startLocalGame(2)
-              }}
-            />
-          </motion.div>
-        )}
-
-        {state.phase === 'online_lobby' && (
-          <motion.div
-            key="lobby"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="min-h-dvh"
-          >
-            <OnlineLobby
-              status={net.sessionStatus}
-              statusDetail={net.statusDetail}
-              roomCode={net.roomCode}
-              players={state.players}
-              isHost={net.isHost}
-              myPlayerIndex={net.myPlayerIndex}
-              onBack={game.goHome}
-              onCreate={net.createRoom}
-              onJoin={net.joinRoom}
-              onCancelSession={() => {
-                net.cancelSession()
-                game.openOnlineLobby()
-              }}
-              onStartMatch={net.startOnlineMatch}
-              onNameChange={net.setPlayerName}
-            />
-          </motion.div>
-        )}
-
-        {state.phase === 'dice_off' && (
-          <motion.div
-            key="diceoff"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="min-h-dvh"
-          >
-            <DiceOff
-              state={state}
-              onRoll={net.rollDiceOff}
-              onResolve={game.resolveDiceOff}
-              onRequestLeave={requestLeave}
-              myPlayerIndex={net.isOnline ? net.myPlayerIndex : null}
-              roomCode={net.isOnline ? net.roomCode : null}
-              isAuthority={net.isAuthority}
-              onNameChange={net.setPlayerName}
-            />
-          </motion.div>
-        )}
-
-        {inGamePhases && (
-          <motion.div
-            key="game"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="min-h-dvh"
-          >
-            <GameScreen
-              game={gameForUi}
-              onRequestLeave={requestLeave}
-              myPlayerIndex={net.isOnline ? net.myPlayerIndex : null}
-              isAuthority={net.isAuthority}
-              roomCode={net.isOnline ? net.roomCode : null}
-            />
-          </motion.div>
-        )}
-
-        {state.phase === 'win' && state.winnerId !== null && (
-          <motion.div
-            key="win"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="min-h-dvh"
-          >
-            <WinScreen
-              winner={state.players[state.winnerId]}
-              others={state.players.filter((p) => p.id !== state.winnerId)}
-              totalTurns={state.totalTurns}
-              onPlayAgain={() => {
-                if (net.isOnline) net.leaveOnline()
-                else game.playAgain()
-              }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <ConfirmLeaveModal
-        open={leaveOpen}
-        onCancel={() => setLeaveOpen(false)}
-        onConfirm={confirmLeave}
-      />
     </div>
   )
 }
-
-export default App

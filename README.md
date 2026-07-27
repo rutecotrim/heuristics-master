@@ -1,64 +1,52 @@
 # Heuristics Master
 
-A polished browser based educational board game that teaches **Nielsen's 10 Usability Heuristics** through fast local and online multiplayer gameplay.
+Educational browser board game that teaches **Nielsen's 10 Usability Heuristics**.
 
-Inspired by Monopoly GO, Mario Party, and Duolingo, not a corporate learning module.
+## Branch layout
 
-## Stack
+| Branch | Purpose |
+| --- | --- |
+| `main` | Project overview and architecture entry point |
+| `game` | Full playable implementation + GitHub Pages deploy |
 
-* React + TypeScript
-* Tailwind CSS
-* Framer Motion
-* Lucide Icons
-* Vite
-* PeerJS (online rooms)
+**Play:** https://rutecotrim.github.io/heuristics-master/  
+**Source (game):** https://github.com/rutecotrim/heuristics-master/tree/game
 
-No backend. No database. Questions live in JSON. Progress stays in memory (banner preference in `localStorage`).
-
-## Run
-
-```bash
-npm install
-npm run dev
-```
-
-## Play
-
-1. Open on a **desktop** browser
-2. Choose local (2 to 4 players) or online with a room code
-3. Everyone rolls; highest starts
-4. Answer a heuristic question each turn
-5. Correct means roll dice and race the board
-6. First to FINISH wins
-
-## Extend questions
-
-Edit `src/data/questions.json`:
-
-```json
-{
-  "id": "q99",
-  "question": "Your question?",
-  "answers": ["A", "B", "C"],
-  "correctIndex": 0,
-  "explanation": "Why this is correct.",
-  "difficulty": "medium"
-}
-```
-
-## Project structure
+## Architecture (on `game`)
 
 ```
 src/
   components/   UI screens and game widgets
-  data/         Board layout and questions JSON
-  engine/       Question and tile effect logic
-  hooks/        Game state machine
-  net/          Online room and PeerJS helpers
-  types/        Shared TypeScript types
-  utils/        Sound ready helpers
+  hooks/        Game state machine + online bridge
+  engine/       Questions, dice, tile effects
+  net/          PeerJS rooms and protocol
+  data/         Board, players, questions JSON
+  types/        Shared TypeScript contracts
+  utils/        Sound (UI SFX) helpers
 ```
 
-## Live demo
+### Design choices
 
-https://rutecotrim.github.io/heuristics-master/
+* **Local first domain logic** in `engine/` and `hooks/useGameState` so rules stay testable without the network.
+* **Host authority online** via `useNetworkBridge` + `net/`: guests send intents, host applies and syncs state.
+* **Data driven content** in `data/questions.json` (100 heuristic questions).
+* **Presentation isolated** in `components/` (React + Framer Motion + Tailwind).
+
+## Stack
+
+* React + TypeScript + Vite
+* Tailwind CSS + Framer Motion
+* PeerJS (online rooms)
+* UI SFX (arcade pack)
+
+## Run the game locally
+
+```bash
+git checkout game
+npm install
+npm run dev
+```
+
+## License notes
+
+App code is part of this repository. UI SFX runtime is MIT; bundled audio cues are CC0.
