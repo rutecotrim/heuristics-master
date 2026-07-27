@@ -309,6 +309,7 @@ export function GameScreen({
           isBonus={state.isBonusQuestion}
           inputEnabled={canAnswer || canContinueExplanation}
           isYourTurn={isMyTurn}
+          onRequestLeave={onRequestLeave}
         />
       )}
 

@@ -10,6 +10,7 @@ interface QuestionModalProps {
   selectedIndex: number | null
   onAnswer: (index: number) => void
   onContinue: () => void
+  onRequestLeave: () => void
   isBonus?: boolean
   inputEnabled?: boolean
   isYourTurn?: boolean
@@ -23,6 +24,7 @@ export function QuestionModal({
   selectedIndex,
   onAnswer,
   onContinue,
+  onRequestLeave,
   isBonus,
   inputEnabled = true,
   isYourTurn = false,
@@ -42,8 +44,17 @@ export function QuestionModal({
           transition={{ type: 'spring', stiffness: 280, damping: 22 }}
           className="panel relative max-h-[90dvh] w-full max-w-2xl overflow-y-auto rounded-[1.75rem] p-5 shadow-2xl sm:p-8"
         >
+          <button
+            type="button"
+            onClick={onRequestLeave}
+            className="absolute right-4 top-4 z-10 rounded-xl p-2 text-ink-muted transition hover:bg-berry/10 hover:text-berry sm:right-5 sm:top-5"
+            aria-label="End game"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
           <div
-            className="mb-5 flex items-center gap-3 rounded-2xl px-3 py-2.5"
+            className="mb-5 flex items-center gap-3 rounded-2xl px-3 py-2.5 pr-12"
             style={{ backgroundColor: `${player.color}22`, border: `2px solid ${player.color}` }}
           >
             <span
