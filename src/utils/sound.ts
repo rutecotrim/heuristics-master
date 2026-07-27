@@ -1,8 +1,8 @@
 import { createUISFX, type CueName } from 'uisfx'
 
 /**
- * Game actions → UI SFX cues (arcade pack).
- * Chosen for a board race + quiz: clear outcomes, light movement, big win.
+ * Game actions → UI SFX cues (rubber pack).
+ * Tactile elastic taps with a quick rebound — fits a casual board quiz.
  */
 type SoundName =
   | 'start'
@@ -48,7 +48,7 @@ function getPlayer() {
   if (typeof window === 'undefined') return null
   if (!player) {
     player = createUISFX({
-      pack: 'arcade',
+      pack: 'rubber',
       volume: 0.72,
       preferences: { key: 'heuristics-master:sound' },
     })
