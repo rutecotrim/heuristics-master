@@ -48,7 +48,7 @@ export function HomeScreen({ onPlayLocal, onPlayOnline, onHowToPlay }: HomeScree
         </h1>
 
         <p className="mx-auto mt-5 max-w-md text-base font-semibold text-parchment/75 sm:text-lg">
-          Master Nielsen&apos;s Heuristics before your friends.
+          Master Nielsen&apos;s Usability Heuristics before your friends.
         </p>
 
         <div className="mt-10 flex flex-col gap-3 sm:gap-4">
