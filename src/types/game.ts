@@ -13,6 +13,8 @@ export type SpecialEffect =
 
 export interface BoardTile {
   id: number
+  x: number
+  y: number
   type: TileType
   special?: SpecialEffect
   label: string
@@ -32,8 +34,10 @@ export interface Question {
 
 export type StatusEffect = 'auto_save' | 'skip_turn'
 
+export type PlayerId = 0 | 1 | 2 | 3
+
 export interface Player {
-  id: 0 | 1
+  id: PlayerId
   name: string
   avatar: string
   color: string
@@ -47,6 +51,7 @@ export interface Player {
 export type GamePhase =
   | 'home'
   | 'how_to_play'
+  | 'online_lobby'
   | 'dice_off'
   | 'playing'
   | 'question'
@@ -55,9 +60,11 @@ export type GamePhase =
   | 'tile_effect'
   | 'win'
 
+export type PlayMode = 'local' | 'online'
+
 export interface GameStats {
   turnsPlayed: number
-  winnerId: 0 | 1 | null
+  winnerId: PlayerId | null
 }
 
 export interface PendingTileEffect {
@@ -70,11 +77,11 @@ export interface PendingTileEffect {
 
 export interface GameState {
   phase: GamePhase
-  players: [Player, Player]
-  currentPlayerIndex: 0 | 1
+  players: Player[]
+  currentPlayerIndex: PlayerId
   diceValue: number | null
   diceOff: {
-    rolls: [number | null, number | null]
+    rolls: (number | null)[]
     rolling: boolean
   }
   currentQuestion: Question | null
@@ -84,7 +91,7 @@ export interface GameState {
   usedQuestionIds: string[]
   bannerDismissed: boolean
   totalTurns: number
-  winnerId: 0 | 1 | null
+  winnerId: PlayerId | null
   isAnimating: boolean
   playAgainPending: boolean
   isBonusQuestion: boolean

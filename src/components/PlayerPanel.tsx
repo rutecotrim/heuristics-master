@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Shield, Ban } from 'lucide-react'
+import { Pencil, Shield, Ban } from 'lucide-react'
 import type { Player } from '../types/game'
 
 interface PlayerPanelProps {
@@ -7,9 +8,32 @@ interface PlayerPanelProps {
   isActive: boolean
   side: 'left' | 'right'
   compact?: boolean
+  canEditName?: boolean
+  onNameChange?: (name: string) => void
 }
 
-export function PlayerPanel({ player, isActive, side, compact = false }: PlayerPanelProps) {
+export function PlayerPanel({
+  player,
+  isActive,
+  side,
+  compact = false,
+  canEditName = false,
+  onNameChange,
+}: PlayerPanelProps) {
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState(player.name)
+
+  useEffect(() => {
+    if (!editing) setDraft(player.name)
+  }, [player.name, editing])
+
+  const commitName = () => {
+    const next = draft.trim().slice(0, 16) || player.name
+    setDraft(next)
+    setEditing(false)
+    if (next !== player.name) onNameChange?.(next)
+  }
+
   return (
     <motion.div
       animate={
@@ -35,7 +59,7 @@ export function PlayerPanel({ player, isActive, side, compact = false }: PlayerP
           animate={{ opacity: 1, y: 0 }}
           className="font-display absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-tangerine px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-ink shadow"
         >
-          Your turn
+          {canEditName ? 'Your turn' : 'Playing'}
         </motion.span>
       )}
 
@@ -49,10 +73,41 @@ export function PlayerPanel({ player, isActive, side, compact = false }: PlayerP
         >
           {player.avatar}
         </motion.div>
-        <div className={side === 'right' && !compact ? 'text-right' : ''}>
-          <p className={`font-display font-extrabold text-ink ${compact ? 'text-sm' : 'text-lg'}`}>
-            {player.name}
-          </p>
+        <div className={`min-w-0 flex-1 ${side === 'right' && !compact ? 'text-right' : ''}`}>
+          {canEditName && editing ? (
+            <input
+              autoFocus
+              value={draft}
+              maxLength={16}
+              onChange={(e) => setDraft(e.target.value)}
+              onBlur={commitName}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') commitName()
+                if (e.key === 'Escape') {
+                  setDraft(player.name)
+                  setEditing(false)
+                }
+              }}
+              className={`font-display w-full rounded-lg border-2 border-tangerine/50 bg-white/80 px-2 py-0.5 text-ink outline-none ${
+                compact ? 'text-sm' : 'text-lg'
+              } font-extrabold`}
+              aria-label="Edit player name"
+            />
+          ) : (
+            <button
+              type="button"
+              disabled={!canEditName}
+              onClick={() => canEditName && setEditing(true)}
+              className={`font-display inline-flex max-w-full items-center gap-1 font-extrabold text-ink ${
+                compact ? 'text-sm' : 'text-lg'
+              } ${canEditName ? 'cursor-pointer hover:text-tangerine-deep' : 'cursor-default'} ${
+                side === 'right' && !compact ? 'flex-row-reverse' : ''
+              }`}
+            >
+              <span className="truncate">{player.name}</span>
+              {canEditName && <Pencil className="h-3 w-3 shrink-0 opacity-60" />}
+            </button>
+          )}
           <p className="text-xs font-semibold text-ink-muted">Tile {player.position}</p>
         </div>
       </div>
@@ -67,7 +122,7 @@ export function PlayerPanel({ player, isActive, side, compact = false }: PlayerP
             )}
             {player.statusEffects.includes('auto_save') && (
               <span className="inline-flex items-center gap-1 rounded-lg bg-tile-green/15 px-2 py-1 text-[10px] font-bold text-felt">
-                <Shield className="h-3 w-3" /> Auto Save
+                <Shield className="h-3 w-3" /> Auto save
               </span>
             )}
             {player.statusEffects.includes('skip_turn') && (

@@ -4,9 +4,14 @@ import type { PendingTileEffect } from '../types/game'
 interface SpecialTilePopupProps {
   effect: PendingTileEffect
   onContinue: () => void
+  inputEnabled?: boolean
 }
 
-export function SpecialTilePopup({ effect, onContinue }: SpecialTilePopupProps) {
+export function SpecialTilePopup({
+  effect,
+  onContinue,
+  inputEnabled = true,
+}: SpecialTilePopupProps) {
   return (
     <AnimatePresence>
       <motion.div
@@ -37,12 +42,13 @@ export function SpecialTilePopup({ effect, onContinue }: SpecialTilePopupProps) 
 
           <motion.button
             type="button"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={inputEnabled ? { scale: 1.04 } : undefined}
+            whileTap={inputEnabled ? { scale: 0.96 } : undefined}
             onClick={onContinue}
-            className="btn-primary font-display mt-8 w-full rounded-2xl py-3.5 text-lg font-extrabold"
+            disabled={!inputEnabled}
+            className="btn-primary font-display mt-8 w-full rounded-2xl py-3.5 text-lg font-extrabold disabled:opacity-50"
           >
-            Continue
+            {inputEnabled ? 'Continue' : 'Waiting for player…'}
           </motion.button>
         </motion.div>
       </motion.div>

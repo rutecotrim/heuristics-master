@@ -47,7 +47,7 @@ export function buildTileEffect(
       return {
         tileId: tile.id,
         effect: 'penalty',
-        title: '💾 Auto Save!',
+        title: '💾 Auto save!',
         message: 'Penalty blocked! Your autosave shield absorbed the hit.',
         emoji: '🛡️',
       }
@@ -128,7 +128,7 @@ function specialEffectPopup(
     auto_save: {
       tileId,
       effect,
-      title: '💾 Auto Save',
+      title: '💾 Auto save',
       message: 'Shield activated! Ignore your next penalty.',
       emoji: '💾',
     },

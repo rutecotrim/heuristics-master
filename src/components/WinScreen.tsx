@@ -6,7 +6,7 @@ import { ScreenShell } from './ScreenShell'
 
 interface WinScreenProps {
   winner: Player
-  loser: Player
+  others: Player[]
   totalTurns: number
   onPlayAgain: () => void
 }
@@ -56,11 +56,10 @@ function Confetti() {
   )
 }
 
-export function WinScreen({ winner, loser, totalTurns, onPlayAgain }: WinScreenProps) {
+export function WinScreen({ winner, others, totalTurns, onPlayAgain }: WinScreenProps) {
+  const answered = winner.totalAnswers
   const accuracy =
-    winner.totalAnswers === 0
-      ? 0
-      : Math.round((winner.correctAnswers / winner.totalAnswers) * 100)
+    answered === 0 ? 0 : Math.round((winner.correctAnswers / answered) * 100)
 
   const [show, setShow] = useState(false)
   useEffect(() => {
@@ -98,14 +97,22 @@ export function WinScreen({ winner, loser, totalTurns, onPlayAgain }: WinScreenP
         </p>
 
         <div className="mt-8 grid grid-cols-3 gap-3">
-          <Stat label="Turns" value={String(Math.max(totalTurns, winner.turnsPlayed))} />
-          <Stat label="Correct" value={String(winner.correctAnswers)} />
+          <Stat label="Your moves" value={String(winner.turnsPlayed)} />
+          <Stat
+            label="Answers"
+            value={answered === 0 ? '0' : `${winner.correctAnswers}/${answered}`}
+          />
           <Stat label="Accuracy" value={`${accuracy}%`} />
         </div>
 
-        <p className="mt-4 text-sm font-semibold text-ink-muted">
-          {loser.avatar} {loser.name} answered {loser.correctAnswers}/{loser.totalAnswers} correctly
-        </p>
+        <div className="mt-4 space-y-1.5 text-sm font-semibold text-ink-muted">
+          {others.map((p) => (
+            <p key={p.id}>
+              {p.avatar} {p.name} answered {p.correctAnswers}/{p.totalAnswers} correctly
+            </p>
+          ))}
+          {totalTurns > 0 && <p>{totalTurns} moves this game</p>}
+        </div>
 
         <motion.button
           type="button"

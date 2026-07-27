@@ -1,5 +1,12 @@
 import { useCallback, useReducer } from 'react'
 import { FINISH_INDEX } from '../data/board'
+import {
+  createPlayer,
+  createPlayers,
+  defaultNameFor,
+  type PlayerCount,
+  resetPlayerForMatch,
+} from '../data/players'
 import { isCorrectAnswer, pickQuestion } from '../engine/questionEngine'
 import {
   applyMove,
@@ -12,25 +19,12 @@ import type {
   GamePhase,
   GameState,
   Player,
+  PlayerId,
   StatusEffect,
 } from '../types/game'
 import { playSound } from '../utils/sound'
 
 const STORAGE_KEY = 'heuristics-master-banner'
-
-function createPlayer(id: 0 | 1, name: string, avatar: string, color: string): Player {
-  return {
-    id,
-    name,
-    avatar,
-    color,
-    position: 0,
-    statusEffects: [],
-    correctAnswers: 0,
-    totalAnswers: 0,
-    turnsPlayed: 0,
-  }
-}
 
 function loadBannerDismissed(): boolean {
   try {
@@ -40,16 +34,18 @@ function loadBannerDismissed(): boolean {
   }
 }
 
+function emptyRolls(count: number): (number | null)[] {
+  return Array.from({ length: count }, () => null)
+}
+
 function createInitialState(): GameState {
+  const players = createPlayers(2)
   return {
     phase: 'home',
-    players: [
-      createPlayer(0, 'Player 1', '🦊', '#3ecfcf'),
-      createPlayer(1, 'Player 2', '🦉', '#ff7a3c'),
-    ],
+    players,
     currentPlayerIndex: 0,
     diceValue: null,
-    diceOff: { rolls: [null, null], rolling: false },
+    diceOff: { rolls: emptyRolls(players.length), rolling: false },
     currentQuestion: null,
     lastAnswerCorrect: null,
     showExplanation: false,
@@ -67,10 +63,13 @@ function createInitialState(): GameState {
 type Action =
   | { type: 'SET_PHASE'; phase: GamePhase }
   | { type: 'DISMISS_BANNER' }
+  | { type: 'SETUP_PLAYERS'; players: Player[] }
+  | { type: 'ADD_PLAYER'; player: Player }
+  | { type: 'REMOVE_PLAYER'; index: PlayerId }
   | { type: 'START_DICE_OFF' }
-  | { type: 'SET_DICE_OFF_ROLL'; playerIndex: 0 | 1; value: number }
+  | { type: 'SET_DICE_OFF_ROLL'; playerIndex: PlayerId; value: number }
   | { type: 'SET_DICE_OFF_ROLLING'; rolling: boolean }
-  | { type: 'BEGIN_GAME'; starter: 0 | 1 }
+  | { type: 'BEGIN_GAME'; starter: PlayerId }
   | { type: 'RESET_DICE_OFF' }
   | { type: 'START_QUESTION'; isBonus?: boolean }
   | { type: 'ANSWER'; answerIndex: number }
@@ -82,18 +81,26 @@ type Action =
   | { type: 'RESOLVE_EFFECT' }
   | { type: 'PASS_TURN' }
   | { type: 'SET_ANIMATING'; value: boolean }
-  | { type: 'WIN'; winnerId: 0 | 1 }
+  | { type: 'WIN'; winnerId: PlayerId }
   | { type: 'PLAY_AGAIN' }
-  | { type: 'UPDATE_PLAYER'; index: 0 | 1; patch: Partial<Player> }
+  | { type: 'UPDATE_PLAYER'; index: PlayerId; patch: Partial<Player> }
   | { type: 'SET_PENDING_NULL' }
   | { type: 'AFTER_BONUS_QUESTION'; correct: boolean }
+  | { type: 'HYDRATE'; state: Omit<GameState, 'bannerDismissed'> }
+  | { type: 'OPEN_ONLINE_LOBBY' }
 
-function otherPlayer(i: 0 | 1): 0 | 1 {
-  return i === 0 ? 1 : 0
-}
+export type GameAction = Action
 
 function stripSkip(effects: StatusEffect[]): StatusEffect[] {
   return effects.filter((e) => e !== 'skip_turn')
+}
+
+function nextPlayerIndex(from: PlayerId, count: number): PlayerId {
+  return ((from + 1) % count) as PlayerId
+}
+
+function reindexPlayers(players: Player[]): Player[] {
+  return players.map((p, i) => ({ ...p, id: i as PlayerId }))
 }
 
 function reducer(state: GameState, action: Action): GameState {
@@ -109,25 +116,71 @@ function reducer(state: GameState, action: Action): GameState {
       }
       return { ...state, bannerDismissed: true }
 
-    case 'START_DICE_OFF':
+    case 'SETUP_PLAYERS':
       return {
-        ...createInitialState(),
-        bannerDismissed: state.bannerDismissed,
-        phase: 'dice_off',
-        diceOff: { rolls: [null, null], rolling: false },
+        ...state,
+        players: reindexPlayers(action.players),
+        diceOff: { rolls: emptyRolls(action.players.length), rolling: false },
+        currentPlayerIndex: 0,
+        winnerId: null,
       }
+
+    case 'ADD_PLAYER': {
+      if (state.players.length >= 4) return state
+      const players = reindexPlayers([...state.players, action.player])
+      return {
+        ...state,
+        players,
+        diceOff: { rolls: emptyRolls(players.length), rolling: false },
+      }
+    }
+
+    case 'REMOVE_PLAYER': {
+      if (state.players.length <= 1) return state
+      const players = reindexPlayers(
+        state.players.filter((_, i) => i !== action.index),
+      )
+      return {
+        ...state,
+        players,
+        diceOff: { rolls: emptyRolls(players.length), rolling: false },
+        currentPlayerIndex: 0,
+      }
+    }
+
+    case 'START_DICE_OFF': {
+      const players = state.players.map(resetPlayerForMatch)
+      return {
+        ...state,
+        players,
+        phase: 'dice_off',
+        currentPlayerIndex: 0,
+        diceValue: null,
+        diceOff: { rolls: emptyRolls(players.length), rolling: false },
+        currentQuestion: null,
+        lastAnswerCorrect: null,
+        showExplanation: false,
+        pendingEffect: null,
+        usedQuestionIds: [],
+        totalTurns: 0,
+        winnerId: null,
+        isAnimating: false,
+        playAgainPending: false,
+        isBonusQuestion: false,
+      }
+    }
 
     case 'RESET_DICE_OFF':
       return {
         ...state,
-        diceOff: { rolls: [null, null], rolling: false },
+        diceOff: { rolls: emptyRolls(state.players.length), rolling: false },
       }
 
     case 'SET_DICE_OFF_ROLLING':
       return { ...state, diceOff: { ...state.diceOff, rolling: action.rolling } }
 
     case 'SET_DICE_OFF_ROLL': {
-      const rolls: [number | null, number | null] = [...state.diceOff.rolls]
+      const rolls = [...state.diceOff.rolls]
       rolls[action.playerIndex] = action.value
       return { ...state, diceOff: { ...state.diceOff, rolls, rolling: false } }
     }
@@ -137,7 +190,7 @@ function reducer(state: GameState, action: Action): GameState {
         ...state,
         phase: 'playing',
         currentPlayerIndex: action.starter,
-        diceOff: { rolls: [null, null], rolling: false },
+        diceOff: { rolls: emptyRolls(state.players.length), rolling: false },
       }
 
     case 'START_QUESTION': {
@@ -157,7 +210,7 @@ function reducer(state: GameState, action: Action): GameState {
     case 'ANSWER': {
       if (!state.currentQuestion) return state
       const correct = isCorrectAnswer(state.currentQuestion, action.answerIndex)
-      const players = [...state.players] as [Player, Player]
+      const players = [...state.players]
       const p = { ...players[state.currentPlayerIndex] }
       p.totalAnswers += 1
       if (correct) p.correctAnswers += 1
@@ -174,7 +227,6 @@ function reducer(state: GameState, action: Action): GameState {
       if (state.lastAnswerCorrect) {
         return { ...state, phase: 'dice_roll', showExplanation: false }
       }
-      // Wrong answer — pass turn
       return passTurnState(state)
     }
 
@@ -185,7 +237,7 @@ function reducer(state: GameState, action: Action): GameState {
       return { ...state, phase: 'moving', isAnimating: true }
 
     case 'FINISH_MOVE': {
-      const players = [...state.players] as [Player, Player]
+      const players = [...state.players]
       const p = { ...players[state.currentPlayerIndex], position: action.position }
       p.turnsPlayed += 1
       players[state.currentPlayerIndex] = p
@@ -213,7 +265,6 @@ function reducer(state: GameState, action: Action): GameState {
         }
       }
 
-      // No effect — check play again, else pass
       if (state.playAgainPending) {
         return {
           ...state,
@@ -237,7 +288,7 @@ function reducer(state: GameState, action: Action): GameState {
 
     case 'RESOLVE_EFFECT': {
       if (!state.pendingEffect) return state
-      const players = [...state.players] as [Player, Player]
+      const players = [...state.players]
       const current = players[state.currentPlayerIndex]
       const result = applyTileEffectResult(current, state.pendingEffect.effect)
 
@@ -304,8 +355,7 @@ function reducer(state: GameState, action: Action): GameState {
     }
 
     case 'AFTER_BONUS_QUESTION': {
-      // Called when bonus quiz from question tile is answered
-      const players = [...state.players] as [Player, Player]
+      const players = [...state.players]
       const p = { ...players[state.currentPlayerIndex] }
       if (action.correct) {
         p.position = Math.min(p.position + 2, FINISH_INDEX)
@@ -350,7 +400,8 @@ function reducer(state: GameState, action: Action): GameState {
       }
 
     case 'UPDATE_PLAYER': {
-      const players = [...state.players] as [Player, Player]
+      if (!state.players[action.index]) return state
+      const players = [...state.players]
       players[action.index] = { ...players[action.index], ...action.patch }
       return { ...state, players }
     }
@@ -358,26 +409,39 @@ function reducer(state: GameState, action: Action): GameState {
     case 'SET_PENDING_NULL':
       return { ...state, pendingEffect: null }
 
+    case 'HYDRATE':
+      return {
+        ...action.state,
+        bannerDismissed: state.bannerDismissed,
+      }
+
+    case 'OPEN_ONLINE_LOBBY':
+      return {
+        ...createInitialState(),
+        bannerDismissed: state.bannerDismissed,
+        phase: 'online_lobby',
+        players: [createPlayer(0)],
+        diceOff: { rolls: [null], rolling: false },
+      }
+
     default:
       return state
   }
 }
 
 function passTurnState(state: GameState): GameState {
-  let next = otherPlayer(state.currentPlayerIndex)
-  const players = [...state.players] as [Player, Player]
+  const count = state.players.length
+  const players = [...state.players]
+  let next = nextPlayerIndex(state.currentPlayerIndex, count)
+  let guarded = 0
 
-  // Skip turn if cognitive overload
-  if (players[next].statusEffects.includes('skip_turn')) {
+  while (players[next]?.statusEffects.includes('skip_turn') && guarded < count) {
     players[next] = {
       ...players[next],
       statusEffects: stripSkip(players[next].statusEffects),
     }
-    // They skip — stay with... actually next player's skip means we skip them and go back?
-    // "Lose one turn" means when it would be their turn, they skip.
-    // So after current passes, next has skip → clear skip and go to the other (current again)?
-    // No: if P0 finishes and P1 has skip, P1 loses turn, so P0 plays again.
-    next = otherPlayer(next)
+    next = nextPlayerIndex(next, count)
+    guarded += 1
   }
 
   return {
@@ -396,6 +460,17 @@ function passTurnState(state: GameState): GameState {
   }
 }
 
+function pickDiceOffWinner(rolls: (number | null)[]): PlayerId | 'tie' | null {
+  if (rolls.length === 0 || rolls.some((r) => r === null)) return null
+  const values = rolls as number[]
+  const max = Math.max(...values)
+  const winners = values
+    .map((v, i) => (v === max ? i : -1))
+    .filter((i) => i >= 0)
+  if (winners.length !== 1) return 'tie'
+  return winners[0] as PlayerId
+}
+
 export function useGameState() {
   const [state, dispatch] = useReducer(reducer, undefined, createInitialState)
 
@@ -407,13 +482,23 @@ export function useGameState() {
     [],
   )
 
+  const setupPlayers = useCallback((count: PlayerCount) => {
+    dispatch({ type: 'SETUP_PLAYERS', players: createPlayers(count) })
+  }, [])
+
   const startDiceOff = useCallback(() => {
     playSound('click')
     dispatch({ type: 'START_DICE_OFF' })
   }, [])
 
+  const startLocalGame = useCallback((count: PlayerCount) => {
+    playSound('click')
+    dispatch({ type: 'SETUP_PLAYERS', players: createPlayers(count) })
+    dispatch({ type: 'START_DICE_OFF' })
+  }, [])
+
   const rollDiceOff = useCallback(
-    async (playerIndex: 0 | 1) => {
+    async (playerIndex: PlayerId) => {
       if (state.diceOff.rolling) return
       if (state.diceOff.rolls[playerIndex] !== null) return
       dispatch({ type: 'SET_DICE_OFF_ROLLING', rolling: true })
@@ -426,14 +511,13 @@ export function useGameState() {
   )
 
   const resolveDiceOff = useCallback(() => {
-    const [a, b] = state.diceOff.rolls
-    if (a === null || b === null) return
-    if (a === b) {
+    const result = pickDiceOffWinner(state.diceOff.rolls)
+    if (result === null) return
+    if (result === 'tie') {
       dispatch({ type: 'RESET_DICE_OFF' })
       return
     }
-    const starter: 0 | 1 = a > b ? 0 : 1
-    dispatch({ type: 'BEGIN_GAME', starter })
+    dispatch({ type: 'BEGIN_GAME', starter: result })
   }, [state.diceOff.rolls])
 
   const beginTurn = useCallback(() => {
@@ -478,13 +562,10 @@ export function useGameState() {
     dispatch({ type: 'SET_DICE', value })
   }, [])
 
-  const completeMove = useCallback(
-    (finalPosition: number) => {
-      playSound('move')
-      dispatch({ type: 'FINISH_MOVE', position: finalPosition })
-    },
-    [],
-  )
+  const completeMove = useCallback((finalPosition: number) => {
+    playSound('move')
+    dispatch({ type: 'FINISH_MOVE', position: finalPosition })
+  }, [])
 
   const acknowledgeEffect = useCallback(() => {
     playSound('special')
@@ -495,8 +576,29 @@ export function useGameState() {
     dispatch({ type: 'PLAY_AGAIN' })
   }, [])
 
-  const setPlayerName = useCallback((index: 0 | 1, name: string) => {
-    dispatch({ type: 'UPDATE_PLAYER', index, patch: { name } })
+  const openOnlineLobby = useCallback(() => {
+    dispatch({ type: 'OPEN_ONLINE_LOBBY' })
+  }, [])
+
+  const hydrate = useCallback((sync: Omit<GameState, 'bannerDismissed'>) => {
+    dispatch({ type: 'HYDRATE', state: sync })
+  }, [])
+
+  const setPlayerName = useCallback((index: PlayerId, name: string) => {
+    const trimmed = name.trim().slice(0, 16) || defaultNameFor(index)
+    dispatch({ type: 'UPDATE_PLAYER', index, patch: { name: trimmed } })
+  }, [])
+
+  const addPlayer = useCallback((player: Player) => {
+    dispatch({ type: 'ADD_PLAYER', player })
+  }, [])
+
+  const removePlayer = useCallback((index: PlayerId) => {
+    dispatch({ type: 'REMOVE_PLAYER', index })
+  }, [])
+
+  const dispatchAction = useCallback((action: Action) => {
+    dispatch(action)
   }, [])
 
   return {
@@ -504,7 +606,9 @@ export function useGameState() {
     dismissBanner,
     goHome,
     showHowToPlay,
+    setupPlayers,
     startDiceOff,
+    startLocalGame,
     rollDiceOff,
     resolveDiceOff,
     beginTurn,
@@ -515,7 +619,12 @@ export function useGameState() {
     completeMove,
     acknowledgeEffect,
     playAgain,
+    openOnlineLobby,
+    hydrate,
     setPlayerName,
+    addPlayer,
+    removePlayer,
+    dispatchAction,
     applyMove,
   }
 }

@@ -11,6 +11,8 @@ interface QuestionModalProps {
   onAnswer: (index: number) => void
   onContinue: () => void
   isBonus?: boolean
+  inputEnabled?: boolean
+  isYourTurn?: boolean
 }
 
 export function QuestionModal({
@@ -22,6 +24,8 @@ export function QuestionModal({
   onAnswer,
   onContinue,
   isBonus,
+  inputEnabled = true,
+  isYourTurn = false,
 }: QuestionModalProps) {
   return (
     <AnimatePresence>
@@ -53,7 +57,7 @@ export function QuestionModal({
                 Now answering
               </p>
               <p className="font-display truncate text-lg font-extrabold text-ink">
-                {player.name}&apos;s turn
+                {isYourTurn ? 'Your turn' : `${player.name}'s turn`}
               </p>
             </div>
             <span className="font-display rounded-full bg-ink px-3 py-1 text-[10px] font-extrabold uppercase tracking-wide text-parchment">
@@ -103,11 +107,13 @@ export function QuestionModal({
                 <motion.button
                   key={answer}
                   type="button"
-                  disabled={showExplanation}
-                  whileHover={!showExplanation ? { scale: 1.015, x: 4 } : undefined}
-                  whileTap={!showExplanation ? { scale: 0.985 } : undefined}
+                  disabled={showExplanation || !inputEnabled}
+                  whileHover={!showExplanation && inputEnabled ? { scale: 1.015, x: 4 } : undefined}
+                  whileTap={!showExplanation && inputEnabled ? { scale: 0.985 } : undefined}
                   onClick={() => onAnswer(i)}
-                  className={`flex items-start gap-3 rounded-2xl border-2 px-4 py-3.5 text-left transition ${styles}`}
+                  className={`flex items-start gap-3 rounded-2xl border-2 px-4 py-3.5 text-left transition ${styles} ${
+                    !inputEnabled && !showExplanation ? 'opacity-70' : ''
+                  }`}
                 >
                   <span className="font-display flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-felt text-sm font-extrabold text-lime-pop">
                     {String.fromCharCode(65 + i)}
@@ -150,16 +156,19 @@ export function QuestionModal({
 
                 <motion.button
                   type="button"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={inputEnabled ? { scale: 1.02 } : undefined}
+                  whileTap={inputEnabled ? { scale: 0.98 } : undefined}
                   onClick={onContinue}
-                  className="btn-primary font-display mt-5 w-full rounded-2xl py-3.5 text-lg font-extrabold"
+                  disabled={!inputEnabled}
+                  className="btn-primary font-display mt-5 w-full rounded-2xl py-3.5 text-lg font-extrabold disabled:opacity-50"
                 >
-                  {lastAnswerCorrect
-                    ? isBonus
-                      ? 'Claim Boost!'
-                      : 'Roll the Dice!'
-                    : 'End Turn'}
+                  {!inputEnabled
+                    ? 'Waiting for player…'
+                    : lastAnswerCorrect
+                      ? isBonus
+                        ? 'Claim Boost!'
+                        : 'Roll the Dice!'
+                      : 'End Turn'}
                 </motion.button>
               </motion.div>
             )}

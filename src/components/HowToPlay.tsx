@@ -11,12 +11,13 @@ const STEPS = [
   {
     icon: Swords,
     title: 'Roll to start',
-    text: 'Both players roll. Highest goes first. Tie? Roll again!',
+    text: 'Play with 2 to 4 friends on the same computer or online with a room code. Highest roll goes first!',
+
   },
   {
     icon: HelpCircle,
     title: 'Answer to move',
-    text: 'Each turn starts with a UX heuristic question. Correct → roll the dice!',
+    text: 'Each turn starts with a UX heuristic question. Correct means you roll the dice!',
   },
   {
     icon: Dice5,
@@ -74,8 +75,9 @@ export function HowToPlay({ onBack, onPlay }: HowToPlayProps) {
         </ul>
 
         <div className="mt-5 rounded-2xl border border-tangerine/30 bg-tangerine/10 p-4 text-sm text-ink">
-          <strong className="font-display">Tile legend:</strong> Blue = path · Purple = bonus
-          quiz · Green = boost · Red = penalty · Orange = special chaos!
+          <strong className="font-display">Tile legend:</strong> Quiet stepping stones = path ·
+          Purple = bonus quiz · Green = boost · Red = penalty · Orange = special chaos · Gold =
+          finish!
         </div>
 
         <motion.button
@@ -85,7 +87,7 @@ export function HowToPlay({ onBack, onPlay }: HowToPlayProps) {
           onClick={onPlay}
           className="btn-primary font-display mt-7 w-full rounded-2xl px-6 py-4 text-lg font-extrabold"
         >
-          Got it — Let&apos;s Play!
+          Got it! Lets play!
         </motion.button>
       </motion.div>
     </ScreenShell>

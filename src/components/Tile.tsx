@@ -1,176 +1,174 @@
 import {
   AlertTriangle,
   Bomb,
-  BookOpen,
   Brain,
   Bug,
-  ChevronsLeft,
-  Circle,
-  ClipboardCheck,
-  Compass,
   Crown,
-  BrainCircuit,
   Eye,
   FileX,
   Flag,
   Flame,
-  Footprints,
-  Gem,
   Gift,
-  GraduationCap,
   HelpCircle,
-  Hexagon,
-  Layers,
   Lightbulb,
-  Map,
-  MessageCircle,
   PartyPopper,
   Puzzle,
-  Rocket,
-  Route,
-  Save,
   Search,
-  Shuffle,
   Sparkles,
-  Star,
-  Target,
-  Trophy,
-  Undo2,
   WifiOff,
   Zap,
   type LucideIcon,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
-import type { BoardTile } from '../types/game'
-import type { Player } from '../types/game'
+import type { BoardTile, Player } from '../types/game'
 
 const ICONS: Record<string, LucideIcon> = {
   flag: Flag,
-  footprints: Footprints,
   'help-circle': HelpCircle,
-  circle: Circle,
   sparkles: Sparkles,
-  rocket: Rocket,
   brain: Brain,
   bug: Bug,
-  hexagon: Hexagon,
   gift: Gift,
-  'message-circle': MessageCircle,
-  star: Star,
-  'undo-2': Undo2,
   zap: Zap,
   lightbulb: Lightbulb,
-  compass: Compass,
-  save: Save,
   'wifi-off': WifiOff,
   search: Search,
-  target: Target,
-  shuffle: Shuffle,
   'party-popper': PartyPopper,
-  'book-open': BookOpen,
-  dizzy: BrainCircuit,
-  map: Map,
   'alert-triangle': AlertTriangle,
-  puzzle: Puzzle,
-  'chevrons-left': ChevronsLeft,
-  layers: Layers,
-  flame: Flame,
-  eye: Eye,
   bomb: Bomb,
-  route: Route,
-  'clipboard-check': ClipboardCheck,
+  eye: Eye,
   'file-x': FileX,
-  trophy: Trophy,
-  'graduation-cap': GraduationCap,
-  gem: Gem,
+  puzzle: Puzzle,
+  flame: Flame,
   crown: Crown,
 }
 
-const TYPE_STYLES: Record<
-  BoardTile['type'],
-  { bg: string; ring: string; icon: string }
+const EVENT_STYLES: Record<
+  Exclude<BoardTile['type'], 'normal'>,
+  { bg: string; ring: string; glow: string; box: string; icon: string }
 > = {
   start: {
     bg: 'from-[#c6f15a] to-[#3ecfcf]',
-    ring: 'ring-white/50',
-    icon: 'text-ink',
+    ring: 'ring-white/60',
+    glow: 'shadow-[0_0_20px_rgba(198,241,90,0.45)]',
+    box: 'h-9 w-9 sm:h-11 sm:w-11 md:h-12 md:w-12',
+    icon: 'h-4 w-4 sm:h-5 sm:w-5 text-ink',
   },
   finish: {
     bg: 'from-[#ffb347] to-[#ff7a3c]',
-    ring: 'ring-white/50',
-    icon: 'text-ink',
-  },
-  normal: {
-    bg: 'from-[#5eb8e8] to-[#2f7fb8]',
-    ring: 'ring-white/30',
-    icon: 'text-white',
+    ring: 'ring-white/60',
+    glow: 'shadow-[0_0_24px_rgba(255,122,60,0.55)]',
+    box: 'h-10 w-10 sm:h-12 sm:w-12 md:h-[3.25rem] md:w-[3.25rem]',
+    icon: 'h-4 w-4 sm:h-5 sm:w-5 text-ink',
   },
   question: {
-    bg: 'from-[#a78bfa] to-[#6d4fd6]',
-    ring: 'ring-white/30',
-    icon: 'text-white',
+    bg: 'from-[#b794f6] to-[#6d4fd6]',
+    ring: 'ring-violet-200/40',
+    glow: 'shadow-[0_6px_14px_rgba(109,79,214,0.35)]',
+    box: 'h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9',
+    icon: 'h-3.5 w-3.5 sm:h-4 sm:w-4 text-white',
   },
   bonus: {
     bg: 'from-[#7ddf9a] to-[#2ea86a]',
-    ring: 'ring-white/30',
-    icon: 'text-white',
+    ring: 'ring-emerald-100/40',
+    glow: 'shadow-[0_6px_14px_rgba(46,168,106,0.35)]',
+    box: 'h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9',
+    icon: 'h-3.5 w-3.5 sm:h-4 sm:w-4 text-white',
   },
   penalty: {
     bg: 'from-[#f0718a] to-[#c93655]',
-    ring: 'ring-white/30',
-    icon: 'text-white',
+    ring: 'ring-rose-100/40',
+    glow: 'shadow-[0_6px_14px_rgba(201,54,85,0.35)]',
+    box: 'h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9',
+    icon: 'h-3.5 w-3.5 sm:h-4 sm:w-4 text-white',
   },
   special: {
     bg: 'from-[#ff9a5c] to-[#e85a1c]',
-    ring: 'ring-white/30',
-    icon: 'text-white',
+    ring: 'ring-orange-100/50',
+    glow: 'shadow-[0_8px_18px_rgba(232,90,28,0.45)]',
+    box: 'h-8 w-8 sm:h-10 sm:w-10 md:h-11 md:w-11',
+    icon: 'h-4 w-4 sm:h-5 sm:w-5 text-white',
   },
 }
 
 interface TileProps {
   tile: BoardTile
+  boardWidth: number
+  boardHeight: number
   playersHere: Player[]
   isHighlighted?: boolean
 }
 
-export function Tile({ tile, playersHere, isHighlighted }: TileProps) {
-  const style = TYPE_STYLES[tile.type]
-  const Icon = ICONS[tile.icon] ?? Circle
+export function Tile({
+  tile,
+  boardWidth,
+  boardHeight,
+  playersHere,
+  isHighlighted,
+}: TileProps) {
+  const left = `${(tile.x / boardWidth) * 100}%`
+  const top = `${(tile.y / boardHeight) * 100}%`
+  const isNormal = tile.type === 'normal'
+  const pulse = tile.type === 'special' || tile.type === 'finish'
+  const Icon = ICONS[tile.icon]
+  const eventStyle =
+    tile.type === 'normal' ? null : EVENT_STYLES[tile.type]
 
   return (
     <motion.div
-      layout
+      layout={false}
       animate={
         isHighlighted
           ? {
-              scale: [1, 1.08, 1],
-              boxShadow: [
-                '0 0 0 rgba(255,201,60,0)',
-                '0 0 24px rgba(255,201,60,0.85)',
-                '0 0 0 rgba(255,201,60,0)',
+              scale: [1, 1.22, 1],
+              filter: [
+                'drop-shadow(0 0 0 rgba(255,201,60,0))',
+                'drop-shadow(0 0 14px rgba(255,201,60,0.95))',
+                'drop-shadow(0 0 0 rgba(255,201,60,0))',
               ],
             }
-          : { scale: 1 }
+          : pulse
+            ? { scale: [1, 1.05, 1] }
+            : { scale: 1 }
       }
-      transition={{ duration: 0.45 }}
-      className={`relative flex aspect-square flex-col items-center justify-center rounded-[0.7rem] bg-gradient-to-br ${style.bg} ring-2 ${style.ring} shadow-[0_4px_0_rgba(0,0,0,0.2)] sm:rounded-xl`}
+      transition={
+        isHighlighted
+          ? { duration: 0.45 }
+          : pulse
+            ? { duration: 2.6, repeat: Infinity, ease: 'easeInOut' }
+            : { duration: 0.3 }
+      }
+      className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
+      style={{ left, top }}
       title={tile.description ? `${tile.label}: ${tile.description}` : tile.label}
     >
-      <Icon className={`h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 ${style.icon}`} strokeWidth={2.5} />
-      {(tile.type === 'start' || tile.type === 'finish') && (
-        <span className={`font-display mt-0.5 hidden text-[8px] font-extrabold uppercase tracking-wide sm:block md:text-[10px] ${style.icon}`}>
-          {tile.label}
-        </span>
+      {isNormal || !eventStyle ? (
+        <div className="h-3.5 w-3.5 rounded-full bg-gradient-to-br from-[#e4d9c8] to-[#b8a992] shadow-[0_3px_0_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.55)] ring-2 ring-white/20 sm:h-4 sm:w-4 md:h-[18px] md:w-[18px]" />
+      ) : (
+        <div
+          className={`relative flex items-center justify-center rounded-full bg-gradient-to-br ${eventStyle.bg} ${eventStyle.box} ${eventStyle.glow} ring-2 ${eventStyle.ring}`}
+        >
+          {Icon && <Icon className={`stroke-[2.5] ${eventStyle.icon}`} />}
+          {(tile.type === 'start' || tile.type === 'finish') && (
+            <span className="font-display absolute -bottom-4 left-1/2 hidden -translate-x-1/2 whitespace-nowrap text-[8px] font-extrabold uppercase tracking-wide text-parchment/85 sm:block md:text-[10px]">
+              {tile.label}
+            </span>
+          )}
+        </div>
       )}
 
       {playersHere.length > 0 && (
-        <div className="absolute -bottom-1 left-1/2 flex -translate-x-1/2 gap-0.5">
-          {playersHere.map((p) => (
+        <div className="absolute -top-6 left-1/2 flex -translate-x-1/2 sm:-top-7">
+          {playersHere.map((p, i) => (
             <motion.span
               key={p.id}
               layoutId={`token-${p.id}`}
-              className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] shadow-lg ring-2 ring-parchment sm:h-6 sm:w-6 sm:text-xs"
-              style={{ backgroundColor: p.color }}
+              className="flex h-6 w-6 items-center justify-center rounded-full text-[11px] shadow-lg ring-2 ring-parchment sm:h-7 sm:w-7 sm:text-sm"
+              style={{
+                backgroundColor: p.color,
+                zIndex: 20 + i,
+                marginLeft: i > 0 ? -8 : 0,
+              }}
               title={p.name}
             >
               {p.avatar}
