@@ -3,12 +3,12 @@
     "id": "q01",
     "question": "A payment fails and the only feedback shown is \"Error 504\". Which heuristic is being violated?",
     "answers": [
-      "Visibility of System Status",
       "Help Users Recognize, Diagnose and Recover from Errors",
-      "Consistency and Standards"
+      "Consistency and Standards",
+      "Visibility of System Status"
     ],
-    "correctIndex": 1,
-    "explanation": "Users should receive meaningful error messages that explain what happened and how to recover , not cryptic codes.",
+    "correctIndex": 0,
+    "explanation": "Users should receive meaningful error messages that explain what happened and how to recover, not cryptic codes.",
     "difficulty": "easy",
     "category": "errors"
   },
@@ -29,11 +29,11 @@
     "id": "q03",
     "question": "A trash can icon for delete is used across an entire app. This mainly supports which heuristic?",
     "answers": [
-      "Match Between System and the Real World",
+      "Recognition Rather Than Recall",
       "User Control and Freedom",
-      "Recognition Rather Than Recall"
+      "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Familiar real world metaphors (like a trash can) help users understand actions without learning new symbols.",
     "difficulty": "medium",
     "category": "metaphors"
@@ -42,12 +42,12 @@
     "id": "q04",
     "question": "Gmail's Undo Send toast after sending an email best demonstrates which heuristic?",
     "answers": [
-      "Error Prevention",
       "User Control and Freedom",
-      "Help and Documentation"
+      "Help and Documentation",
+      "Error Prevention"
     ],
-    "correctIndex": 1,
-    "explanation": "Undo gives users an emergency exit from mistakes , a classic example of user control and freedom.",
+    "correctIndex": 0,
+    "explanation": "Undo gives users an emergency exit from mistakes, a classic example of user control and freedom.",
     "difficulty": "easy",
     "category": "control"
   },
@@ -55,12 +55,12 @@
     "id": "q05",
     "question": "A form validates the email field as soon as you leave it, before submit. This mainly supports:",
     "answers": [
-      "Error Prevention",
+      "Flexibility and Efficiency of Use",
       "Aesthetic and Minimalist Design",
-      "Flexibility and Efficiency of Use"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
-    "explanation": "Catching mistakes early , before a costly submit , is error prevention in action.",
+    "correctIndex": 2,
+    "explanation": "Catching mistakes early, before a costly submit, is error prevention in action.",
     "difficulty": "easy",
     "category": "errors"
   },
@@ -69,11 +69,11 @@
     "question": "Every screen in a design system uses the same primary button style. Which heuristic is this?",
     "answers": [
       "Consistency and Standards",
-      "Visibility of System Status",
-      "Help Users Recognize, Diagnose and Recover from Errors"
+      "Help Users Recognize, Diagnose and Recover from Errors",
+      "Visibility of System Status"
     ],
     "correctIndex": 0,
-    "explanation": "Consistent UI patterns reduce cognitive load , users shouldn't wonder whether different words or buttons mean the same thing.",
+    "explanation": "Consistent UI patterns reduce cognitive load, users shouldn't wonder whether different words or buttons mean the same thing.",
     "difficulty": "easy",
     "category": "consistency"
   },
@@ -82,8 +82,8 @@
     "question": "A settings page hides advanced options behind an \"Advanced\" accordion. This supports:",
     "answers": [
       "Aesthetic and Minimalist Design",
-      "Recognition Rather Than Recall",
-      "Match Between System and the Real World"
+      "Match Between System and the Real World",
+      "Recognition Rather Than Recall"
     ],
     "correctIndex": 0,
     "explanation": "Minimalist design means dialogues shouldn't contain irrelevant or rarely needed information upfront.",
@@ -99,7 +99,7 @@
       "Help and Documentation"
     ],
     "correctIndex": 0,
-    "explanation": "Accelerators speed up expert users without harming first time users , flexibility for both groups.",
+    "explanation": "Accelerators speed up expert users without harming first time users, flexibility for both groups.",
     "difficulty": "easy",
     "category": "efficiency"
   },
@@ -108,11 +108,11 @@
     "question": "A password field shows a checklist of requirements as you type. This mainly aids:",
     "answers": [
       "Recognition Rather Than Recall",
-      "Visibility of System Status",
-      "Consistency and Standards"
+      "Consistency and Standards",
+      "Visibility of System Status"
     ],
     "correctIndex": 0,
-    "explanation": "Showing requirements visibly reduces the need to remember rules , recognition over recall.",
+    "explanation": "Showing requirements visibly reduces the need to remember rules, recognition over recall.",
     "difficulty": "medium",
     "category": "recognition"
   },
@@ -120,11 +120,11 @@
     "id": "q10",
     "question": "A \"Delete account\" button opens a confirmation dialog with Cancel as the default. This is mainly:",
     "answers": [
-      "Error Prevention",
       "Aesthetic and Minimalist Design",
+      "Error Prevention",
       "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Confirmations for destructive actions help prevent irreversible mistakes.",
     "difficulty": "easy",
     "category": "errors"
@@ -133,11 +133,11 @@
     "id": "q11",
     "question": "Spotify's \"Recently Played\" section helps users find songs without searching. Which heuristic?",
     "answers": [
-      "Recognition Rather Than Recall",
       "Help and Documentation",
-      "Consistency and Standards"
+      "Consistency and Standards",
+      "Recognition Rather Than Recall"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Surfacing recent items lets users recognize what they want instead of recalling names from memory.",
     "difficulty": "medium",
     "category": "recognition"
@@ -146,11 +146,11 @@
     "id": "q12",
     "question": "An app shows a spinner with \"Uploading photo… 67%\" during upload. Which heuristic?",
     "answers": [
-      "Visibility of System Status",
       "User Control and Freedom",
+      "Visibility of System Status",
       "Aesthetic and Minimalist Design"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "The system should always keep users informed about what is going on through timely feedback.",
     "difficulty": "easy",
     "category": "status"
@@ -159,12 +159,12 @@
     "id": "q13",
     "question": "A shopping cart uses a shopping basket icon and checkout language shoppers already know. This is:",
     "answers": [
-      "Match Between System and the Real World",
       "Flexibility and Efficiency of Use",
+      "Match Between System and the Real World",
       "Help and Documentation"
     ],
-    "correctIndex": 0,
-    "explanation": "The system should speak the users' language , familiar words, phrases, and concepts.",
+    "correctIndex": 1,
+    "explanation": "The system should speak the users' language, familiar words, phrases, and concepts.",
     "difficulty": "easy",
     "category": "metaphors"
   },
@@ -172,25 +172,25 @@
     "id": "q14",
     "question": "Google Docs autosaves continuously so users rarely fear losing work. Closest heuristic?",
     "answers": [
-      "Error Prevention",
+      "Aesthetic and Minimalist Design",
       "Help and Documentation",
-      "Aesthetic and Minimalist Design"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Autosave prevents a common catastrophic error: losing unsaved work.",
     "difficulty": "medium",
     "category": "errors"
   },
   {
     "id": "q15",
-    "question": "A tooltip explains a complex chart icon on hover. This primarily supports:",
+    "question": "A '?' icon next to a complex chart opens a persistent info panel when tapped or clicked (not just on hover), explaining what the chart shows. This primarily supports:",
     "answers": [
+      "User Control and Freedom",
       "Help and Documentation",
-      "Consistency and Standards",
-      "User Control and Freedom"
+      "Consistency and Standards"
     ],
-    "correctIndex": 0,
-    "explanation": "Even if a system is usable, it may need help , ideally contextual, concise, and easy to search.",
+    "correctIndex": 1,
+    "explanation": "Even if a system is usable, it may need help, ideally contextual, concise, and easy to search. Making it click-triggered (not hover-only) keeps it usable on touch devices and with keyboard/screen reader navigation.",
     "difficulty": "medium",
     "category": "help"
   },
@@ -198,11 +198,11 @@
     "id": "q16",
     "question": "Which of Nielsen's heuristics is about providing \"emergency exits\" like Undo and Cancel?",
     "answers": [
-      "User Control and Freedom",
       "Visibility of System Status",
-      "Recognition Rather Than Recall"
+      "Recognition Rather Than Recall",
+      "User Control and Freedom"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Users often choose system functions by mistake and need a clearly marked way out without an extended dialogue.",
     "difficulty": "easy",
     "category": "definitions"
@@ -211,11 +211,11 @@
     "id": "q17",
     "question": "A dashboard dumps 40 metrics with equal visual weight and no hierarchy. Which heuristic suffers most?",
     "answers": [
-      "Aesthetic and Minimalist Design",
       "Match Between System and the Real World",
+      "Aesthetic and Minimalist Design",
       "Flexibility and Efficiency of Use"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Every extra unit of information competes with relevant units and diminishes their relative visibility.",
     "difficulty": "medium",
     "category": "minimalism"
@@ -224,12 +224,12 @@
     "id": "q18",
     "question": "An iOS app places the back button top left, matching platform conventions. This is:",
     "answers": [
+      "Help Users Recognize, Diagnose and Recover from Errors",
       "Consistency and Standards",
-      "Error Prevention",
-      "Help Users Recognize, Diagnose and Recover from Errors"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
-    "explanation": "Users shouldn't have to wonder whether different words, situations, or actions mean the same thing , follow platform conventions.",
+    "correctIndex": 1,
+    "explanation": "Users shouldn't have to wonder whether different words, situations, or actions mean the same thing, follow platform conventions.",
     "difficulty": "easy",
     "category": "consistency"
   },
@@ -250,11 +250,11 @@
     "id": "q20",
     "question": "Figma's multiselect + shortcut duplication for experts while keeping menus for new users shows:",
     "answers": [
-      "Flexibility and Efficiency of Use",
       "Visibility of System Status",
-      "Match Between System and the Real World"
+      "Match Between System and the Real World",
+      "Flexibility and Efficiency of Use"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Good interfaces serve both inexperienced and experienced users with tailored paths to the same goals.",
     "difficulty": "medium",
     "category": "efficiency"
@@ -263,11 +263,11 @@
     "id": "q21",
     "question": "A booking app remembers your last destination and shows it as a quick pick chip. Heuristic?",
     "answers": [
-      "Recognition Rather Than Recall",
+      "Help and Documentation",
       "User Control and Freedom",
-      "Help and Documentation"
+      "Recognition Rather Than Recall"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Minimizing memory load by making options visible supports recognition rather than recall.",
     "difficulty": "medium",
     "category": "recognition"
@@ -276,12 +276,12 @@
     "id": "q22",
     "question": "You tap \"Buy\" and nothing happens for 8 seconds with no feedback. Which heuristic is broken?",
     "answers": [
-      "Visibility of System Status",
       "Consistency and Standards",
+      "Visibility of System Status",
       "Aesthetic and Minimalist Design"
     ],
-    "correctIndex": 0,
-    "explanation": "Without feedback, users don't know if the action registered , a classic visibility of status failure.",
+    "correctIndex": 1,
+    "explanation": "Without feedback, users don't know if the action registered, a classic visibility of status failure.",
     "difficulty": "easy",
     "category": "status"
   },
@@ -289,11 +289,11 @@
     "id": "q23",
     "question": "A calendar app lets you drag events to reschedule, mirroring physical calendars. This is:",
     "answers": [
-      "Match Between System and the Real World",
+      "Help and Documentation",
       "Error Prevention",
-      "Help and Documentation"
+      "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Following real world conventions makes information appear in a natural and logical order.",
     "difficulty": "easy",
     "category": "metaphors"
@@ -315,25 +315,25 @@
     "id": "q25",
     "question": "Which heuristic says interfaces should not contain information that is irrelevant or rarely needed?",
     "answers": [
+      "User Control and Freedom",
       "Aesthetic and Minimalist Design",
-      "Visibility of System Status",
-      "User Control and Freedom"
+      "Visibility of System Status"
     ],
-    "correctIndex": 0,
-    "explanation": "Dialogues should not contain information which is irrelevant or rarely needed , keep them focused.",
+    "correctIndex": 1,
+    "explanation": "Dialogues should not contain information which is irrelevant or rarely needed, keep them focused.",
     "difficulty": "easy",
     "category": "definitions"
   },
   {
     "id": "q26",
-    "question": "A banking app uses red for debt and green for income consistently across screens. Heuristic?",
+    "question": "A banking app uses a red minus icon for debts and a green plus icon for income, consistently across every screen. Heuristic?",
     "answers": [
+      "Flexibility and Efficiency of Use",
       "Consistency and Standards",
-      "Help Users Recognize, Diagnose and Recover from Errors",
-      "Flexibility and Efficiency of Use"
+      "Help Users Recognize, Diagnose and Recover from Errors"
     ],
-    "correctIndex": 0,
-    "explanation": "Consistent color meaning across the product helps users build reliable mental models.",
+    "correctIndex": 1,
+    "explanation": "Consistent color AND icon meaning across the product helps users build reliable mental models. Pairing color with a shape avoids relying on color alone, which fails for color-blind users.",
     "difficulty": "medium",
     "category": "consistency"
   },
@@ -354,11 +354,11 @@
     "id": "q28",
     "question": "A photo editor offers both a simple mode and a pro mode with layers. Closest heuristic?",
     "answers": [
+      "Visibility of System Status",
       "Flexibility and Efficiency of Use",
-      "Error Prevention",
-      "Visibility of System Status"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Allowing users to tailor frequent actions accelerates both novices and experts.",
     "difficulty": "medium",
     "category": "efficiency"
@@ -367,12 +367,12 @@
     "id": "q29",
     "question": "Inline help text under a confusing tax field, plus a link to a full guide, demonstrates:",
     "answers": [
-      "Help and Documentation",
+      "User Control and Freedom",
       "Consistency and Standards",
-      "User Control and Freedom"
+      "Help and Documentation"
     ],
-    "correctIndex": 0,
-    "explanation": "Help should be easy to search, focused on the user's task, and list concrete steps , ideally contextual.",
+    "correctIndex": 2,
+    "explanation": "Help should be easy to search, focused on the user's task, and list concrete steps, ideally contextual.",
     "difficulty": "easy",
     "category": "help"
   },
@@ -380,12 +380,12 @@
     "id": "q30",
     "question": "A \"Are you sure?\" modal appears for every tiny action, including opening a menu. What's wrong?",
     "answers": [
-      "It overuses confirmations and hurts efficiency / control",
       "It violates Match Between System and the Real World only",
-      "It always improves Error Prevention with no downside"
+      "It always improves Error Prevention with no downside",
+      "It overuses confirmations and hurts efficiency / control"
     ],
-    "correctIndex": 0,
-    "explanation": "Confirmations help for destructive actions , overusing them slows users and trains them to ignore warnings.",
+    "correctIndex": 2,
+    "explanation": "Confirmations help for destructive actions, overusing them slows users and trains them to ignore warnings.",
     "difficulty": "hard",
     "category": "tradeoffs"
   },
@@ -394,8 +394,8 @@
     "question": "Nielsen's \"Visibility of System Status\" is best summarized as:",
     "answers": [
       "Keep users informed about what is going on through timely feedback",
-      "Always hide system complexity completely from users",
-      "Use as many status colors as possible on every screen"
+      "Use as many status colors as possible on every screen",
+      "Always hide system complexity completely from users"
     ],
     "correctIndex": 0,
     "explanation": "The design should always keep users informed about system state with appropriate feedback within a reasonable time.",
@@ -406,11 +406,11 @@
     "id": "q32",
     "question": "A mobile nav uses a hamburger with unlabeled icons only. Users keep getting lost. Likely issue?",
     "answers": [
-      "Recognition Rather Than Recall , labels would reduce memory load",
-      "Too much Visibility of System Status",
-      "Excessive Match Between System and the Real World"
+      "Excessive Match Between System and the Real World",
+      "Recognition Rather Than Recall, labels would reduce memory load",
+      "Too much Visibility of System Status"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Unlabeled icons force users to recall meanings. Visible labels support recognition.",
     "difficulty": "hard",
     "category": "recognition"
@@ -419,11 +419,11 @@
     "id": "q33",
     "question": "A file download shows \"Preparing…\" then \"Downloading…\" then \"Done.\" Which heuristic is this?",
     "answers": [
-      "Visibility of System Status",
       "Aesthetic and Minimalist Design",
-      "Help and Documentation"
+      "Help and Documentation",
+      "Visibility of System Status"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Step by step status updates keep users informed about what the system is doing.",
     "difficulty": "easy",
     "category": "status"
@@ -432,11 +432,11 @@
     "id": "q34",
     "question": "A travel site labels seats as \"Window,\" \"Aisle,\" and \"Extra legroom\" instead of codes like S1/S2. Heuristic?",
     "answers": [
-      "Match Between System and the Real World",
       "Error Prevention",
-      "Flexibility and Efficiency of Use"
+      "Flexibility and Efficiency of Use",
+      "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Everyday language matches how travelers think about seats, not internal system codes.",
     "difficulty": "easy",
     "category": "metaphors"
@@ -446,8 +446,8 @@
     "question": "A wizard includes a clear \"Back\" button on every step so users can revise earlier choices. This supports:",
     "answers": [
       "User Control and Freedom",
-      "Consistency and Standards",
-      "Aesthetic and Minimalist Design"
+      "Aesthetic and Minimalist Design",
+      "Consistency and Standards"
     ],
     "correctIndex": 0,
     "explanation": "Back and Cancel act as emergency exits so users are not trapped in a forced path.",
@@ -459,8 +459,8 @@
     "question": "Two screens both use \"Remove\" for delete, but a third screen suddenly says \"Expunge.\" What is broken?",
     "answers": [
       "Consistency and Standards",
-      "Visibility of System Status",
-      "Help and Documentation"
+      "Help and Documentation",
+      "Visibility of System Status"
     ],
     "correctIndex": 0,
     "explanation": "Inconsistent wording makes users wonder whether different labels mean different actions.",
@@ -471,11 +471,11 @@
     "id": "q37",
     "question": "A date picker blocks selecting past dates for a future booking. This is mainly:",
     "answers": [
-      "Error Prevention",
       "Recognition Rather Than Recall",
+      "Error Prevention",
       "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Constraining invalid choices stops mistakes before they happen.",
     "difficulty": "easy",
     "category": "errors"
@@ -484,11 +484,11 @@
     "id": "q38",
     "question": "A search box shows recent queries as you focus it. Which heuristic does this support?",
     "answers": [
-      "Recognition Rather Than Recall",
       "User Control and Freedom",
+      "Recognition Rather Than Recall",
       "Aesthetic and Minimalist Design"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Visible recent searches let users pick rather than remember what they typed before.",
     "difficulty": "easy",
     "category": "recognition"
@@ -498,8 +498,8 @@
     "question": "A settings screen puts only the top five options up front and tucks the rest under \"More.\" Heuristic?",
     "answers": [
       "Aesthetic and Minimalist Design",
-      "Flexibility and Efficiency of Use",
-      "Help Users Recognize, Diagnose and Recover from Errors"
+      "Help Users Recognize, Diagnose and Recover from Errors",
+      "Flexibility and Efficiency of Use"
     ],
     "correctIndex": 0,
     "explanation": "Hiding rarely needed options reduces clutter and keeps the main dialog focused.",
@@ -510,11 +510,11 @@
     "id": "q40",
     "question": "Double tap to like works for experts, while a visible Like button remains for everyone else. This is:",
     "answers": [
-      "Flexibility and Efficiency of Use",
+      "Consistency and Standards",
       "Error Prevention",
-      "Consistency and Standards"
+      "Flexibility and Efficiency of Use"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Accelerators help experts while the same goal stays reachable for beginners.",
     "difficulty": "easy",
     "category": "efficiency"
@@ -523,11 +523,11 @@
     "id": "q41",
     "question": "A 404 page says \"Page not found\" and offers a search box plus a Home link. This supports:",
     "answers": [
-      "Help Users Recognize, Diagnose and Recover from Errors",
+      "Match Between System and the Real World",
       "Visibility of System Status",
-      "Match Between System and the Real World"
+      "Help Users Recognize, Diagnose and Recover from Errors"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Plain language plus clear next steps help users recover from a dead end.",
     "difficulty": "easy",
     "category": "errors"
@@ -536,11 +536,11 @@
     "id": "q42",
     "question": "A first run coach mark briefly explains the Compose button, with a Skip option. Closest heuristic?",
     "answers": [
+      "Aesthetic and Minimalist Design",
       "Help and Documentation",
-      "Error Prevention",
-      "Aesthetic and Minimalist Design"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Contextual onboarding help should be focused, brief, and easy to dismiss.",
     "difficulty": "medium",
     "category": "help"
@@ -549,11 +549,11 @@
     "id": "q43",
     "question": "Nielsen's \"Match Between System and the Real World\" is best summarized as:",
     "answers": [
+      "Hide all metaphors so the UI feels abstract",
       "Speak the users' language and follow real world conventions",
-      "Always copy physical objects pixel for pixel",
-      "Hide all metaphors so the UI feels abstract"
+      "Always copy physical objects pixel for pixel"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Interfaces should use familiar words, concepts, and natural information order.",
     "difficulty": "easy",
     "category": "definitions"
@@ -562,11 +562,11 @@
     "id": "q44",
     "question": "After you publish a post, a toast says \"Published\" with a View link. Which heuristic?",
     "answers": [
-      "Visibility of System Status",
       "User Control and Freedom",
+      "Visibility of System Status",
       "Consistency and Standards"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Confirmation feedback tells users the action succeeded and what state they are in.",
     "difficulty": "easy",
     "category": "status"
@@ -576,8 +576,8 @@
     "question": "A folder metaphor with drag and drop files mirrors how people organize papers. Heuristic?",
     "answers": [
       "Match Between System and the Real World",
-      "Help and Documentation",
-      "Flexibility and Efficiency of Use"
+      "Flexibility and Efficiency of Use",
+      "Help and Documentation"
     ],
     "correctIndex": 0,
     "explanation": "Familiar metaphors help users transfer real world knowledge to the interface.",
@@ -588,11 +588,11 @@
     "id": "q46",
     "question": "Cmd+Z / Ctrl+Z undo is available after almost every edit. This mainly supports:",
     "answers": [
-      "User Control and Freedom",
+      "Recognition Rather Than Recall",
       "Aesthetic and Minimalist Design",
-      "Recognition Rather Than Recall"
+      "User Control and Freedom"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Undo is a classic emergency exit that lets users reverse mistakes safely.",
     "difficulty": "easy",
     "category": "control"
@@ -601,11 +601,11 @@
     "id": "q47",
     "question": "Primary actions are always a filled tangerine button in the bottom right across the app. Heuristic?",
     "answers": [
-      "Consistency and Standards",
+      "Help Users Recognize, Diagnose and Recover from Errors",
       "Error Prevention",
-      "Help Users Recognize, Diagnose and Recover from Errors"
+      "Consistency and Standards"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Predictable placement and style of primary actions reduce learning cost.",
     "difficulty": "easy",
     "category": "consistency"
@@ -614,11 +614,11 @@
     "id": "q48",
     "question": "Typing an email with a missing \"@\" shows a gentle tip before you hit Submit. This is:",
     "answers": [
-      "Error Prevention",
       "Visibility of System Status",
+      "Error Prevention",
       "Flexibility and Efficiency of Use"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Inline validation prevents submitting a form that is known to be invalid.",
     "difficulty": "easy",
     "category": "errors"
@@ -628,8 +628,8 @@
     "question": "A command palette lists available actions with icons and labels instead of making you memorize commands. Heuristic?",
     "answers": [
       "Recognition Rather Than Recall",
-      "Match Between System and the Real World",
-      "Aesthetic and Minimalist Design"
+      "Aesthetic and Minimalist Design",
+      "Match Between System and the Real World"
     ],
     "correctIndex": 0,
     "explanation": "Showing options reduces memory load compared with typing invisible commands.",
@@ -640,11 +640,11 @@
     "id": "q50",
     "question": "A marketing landing page has five competing CTAs with equal emphasis. Which heuristic is strained?",
     "answers": [
-      "Aesthetic and Minimalist Design",
       "User Control and Freedom",
+      "Aesthetic and Minimalist Design",
       "Help and Documentation"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Too many competing elements dilute what matters and raise cognitive load.",
     "difficulty": "medium",
     "category": "minimalism"
@@ -667,8 +667,8 @@
     "question": "A payment error says \"Card declined. Try another card or contact your bank.\" instead of \"ERR_PAY_9.\" This helps:",
     "answers": [
       "Help Users Recognize, Diagnose and Recover from Errors",
-      "Aesthetic and Minimalist Design",
-      "Match Between System and the Real World"
+      "Match Between System and the Real World",
+      "Aesthetic and Minimalist Design"
     ],
     "correctIndex": 0,
     "explanation": "Good error copy states the problem in plain language and suggests recovery.",
@@ -679,11 +679,11 @@
     "id": "q53",
     "question": "A searchable FAQ sits one tap from every screen's footer. Which heuristic?",
     "answers": [
-      "Help and Documentation",
+      "Error Prevention",
       "Visibility of System Status",
-      "Error Prevention"
+      "Help and Documentation"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Help should be easy to find and search when users need it.",
     "difficulty": "easy",
     "category": "help"
@@ -718,11 +718,11 @@
     "id": "q56",
     "question": "An ecommerce filter uses \"Under $50\" instead of \"price_lte_50.\" This supports:",
     "answers": [
-      "Match Between System and the Real World",
       "Error Prevention",
+      "Match Between System and the Real World",
       "Help and Documentation"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Shopper friendly wording beats internal field names.",
     "difficulty": "easy",
     "category": "metaphors"
@@ -731,11 +731,11 @@
     "id": "q57",
     "question": "A long checkout lets you save as draft and leave, then resume later. This mainly aids:",
     "answers": [
-      "User Control and Freedom",
       "Consistency and Standards",
+      "User Control and Freedom",
       "Aesthetic and Minimalist Design"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Users should be free to leave a flow and return without losing their work.",
     "difficulty": "medium",
     "category": "control"
@@ -757,11 +757,11 @@
     "id": "q59",
     "question": "Confirming a wire transfer requires typing the recipient name. This is mainly:",
     "answers": [
-      "Error Prevention",
+      "Match Between System and the Real World",
       "Recognition Rather Than Recall",
-      "Match Between System and the Real World"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Friction for irreversible high risk actions helps prevent costly mistakes.",
     "difficulty": "medium",
     "category": "errors"
@@ -770,11 +770,11 @@
     "id": "q60",
     "question": "Breadcrumbs show Home > Projects > Alpha > Settings. Which heuristic benefits most?",
     "answers": [
+      "Help and Documentation",
       "Recognition Rather Than Recall",
-      "Aesthetic and Minimalist Design",
-      "Help and Documentation"
+      "Aesthetic and Minimalist Design"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Visible path cues reduce the need to remember where you are in the hierarchy.",
     "difficulty": "medium",
     "category": "recognition"
@@ -783,9 +783,9 @@
     "id": "q61",
     "question": "A form asks for the same address three times on one page with no clear reason. Problem?",
     "answers": [
-      "Aesthetic and Minimalist Design , unnecessary information and fields",
-      "Too little Visibility of System Status",
-      "Excessive Match Between System and the Real World"
+      "Aesthetic and Minimalist Design, unnecessary information and fields",
+      "Excessive Match Between System and the Real World",
+      "Too little Visibility of System Status"
     ],
     "correctIndex": 0,
     "explanation": "Irrelevant or redundant fields add noise and slow people down.",
@@ -796,11 +796,11 @@
     "id": "q62",
     "question": "Power users pin favorite tools to a custom toolbar. Closest heuristic?",
     "answers": [
+      "Visibility of System Status",
       "Flexibility and Efficiency of Use",
-      "Error Prevention",
-      "Visibility of System Status"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Personalization lets frequent actions become faster for experienced users.",
     "difficulty": "medium",
     "category": "efficiency"
@@ -820,13 +820,13 @@
   },
   {
     "id": "q64",
-    "question": "A \"?\" icon next to a rare setting opens a one paragraph explanation. Heuristic?",
+    "question": "A \"?\" icon next to a rare setting opens a one paragraph explanation when clicked. Heuristic?",
     "answers": [
+      "Flexibility and Efficiency of Use",
       "Help and Documentation",
-      "User Control and Freedom",
-      "Flexibility and Efficiency of Use"
+      "User Control and Freedom"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Task focused contextual help beats dumping users into a huge manual.",
     "difficulty": "easy",
     "category": "help"
@@ -835,11 +835,11 @@
     "id": "q65",
     "question": "Nielsen's \"User Control and Freedom\" emphasizes especially:",
     "answers": [
+      "Showing every system log on screen at once",
       "Undo, redo, and clearly marked exits from unwanted states",
-      "Removing all choices so users cannot make mistakes",
-      "Showing every system log on screen at once"
+      "Removing all choices so users cannot make mistakes"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "People need ways out when they enter the wrong path by mistake.",
     "difficulty": "easy",
     "category": "definitions"
@@ -848,11 +848,11 @@
     "id": "q66",
     "question": "A multi file upload shows each file's progress bar separately. Which heuristic?",
     "answers": [
+      "Consistency and Standards",
       "Visibility of System Status",
-      "Aesthetic and Minimalist Design",
-      "Consistency and Standards"
+      "Aesthetic and Minimalist Design"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Per item feedback clarifies what is happening for each upload.",
     "difficulty": "easy",
     "category": "status"
@@ -861,11 +861,11 @@
     "id": "q67",
     "question": "A thermostat UI uses a simple temperature dial instead of raw sensor registers. Heuristic?",
     "answers": [
-      "Match Between System and the Real World",
+      "Help and Documentation",
       "Error Prevention",
-      "Help and Documentation"
+      "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Present concepts the way users think about them in daily life.",
     "difficulty": "medium",
     "category": "metaphors"
@@ -875,8 +875,8 @@
     "question": "An image editor offers Cancel while a filter preview is open, discarding the filter. This is:",
     "answers": [
       "User Control and Freedom",
-      "Recognition Rather Than Recall",
-      "Aesthetic and Minimalist Design"
+      "Aesthetic and Minimalist Design",
+      "Recognition Rather Than Recall"
     ],
     "correctIndex": 0,
     "explanation": "Cancel lets users reject an exploration without committing.",
@@ -887,12 +887,12 @@
     "id": "q69",
     "question": "Destructive actions are always red and placed away from primary Save. Heuristic?",
     "answers": [
+      "Help Users Recognize, Diagnose and Recover from Errors",
       "Consistency and Standards",
-      "Flexibility and Efficiency of Use",
-      "Help Users Recognize, Diagnose and Recover from Errors"
+      "Flexibility and Efficiency of Use"
     ],
-    "correctIndex": 0,
-    "explanation": "Consistent treatment of danger helps users predict consequences.",
+    "correctIndex": 1,
+    "explanation": "Consistent treatment of danger, using both color and position, helps users predict consequences.",
     "difficulty": "medium",
     "category": "consistency"
   },
@@ -900,11 +900,11 @@
     "id": "q70",
     "question": "Suggesting strong password options as chips (\"Use passphrase\") mainly supports:",
     "answers": [
-      "Error Prevention",
+      "Match Between System and the Real World",
       "Visibility of System Status",
-      "Match Between System and the Real World"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Guiding users toward valid, safer choices prevents weak password errors.",
     "difficulty": "medium",
     "category": "errors"
@@ -914,8 +914,8 @@
     "question": "A tagging UI shows existing tags as selectable chips rather than asking you to retype them. Heuristic?",
     "answers": [
       "Recognition Rather Than Recall",
-      "User Control and Freedom",
-      "Help and Documentation"
+      "Help and Documentation",
+      "User Control and Freedom"
     ],
     "correctIndex": 0,
     "explanation": "Visible prior tags remove the need to remember exact spelling.",
@@ -926,11 +926,11 @@
     "id": "q72",
     "question": "A dashboard default view shows three KPIs; power users can add more widgets. This balances:",
     "answers": [
-      "Aesthetic and Minimalist Design with Flexibility and Efficiency of Use",
+      "Only Error Prevention",
       "Only Help and Documentation",
-      "Only Error Prevention"
+      "Aesthetic and Minimalist Design with Flexibility and Efficiency of Use"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Start simple, then let experts deepen the view without overwhelming everyone.",
     "difficulty": "hard",
     "category": "tradeoffs"
@@ -953,8 +953,8 @@
     "question": "\"Network timeout. Check your connection and retry.\" with a Retry button demonstrates:",
     "answers": [
       "Help Users Recognize, Diagnose and Recover from Errors",
-      "Aesthetic and Minimalist Design",
-      "Recognition Rather Than Recall"
+      "Recognition Rather Than Recall",
+      "Aesthetic and Minimalist Design"
     ],
     "correctIndex": 0,
     "explanation": "Name the problem, explain a likely cause, and provide a recovery action.",
@@ -966,8 +966,8 @@
     "question": "Empty states include a short tip and a link to a getting started guide. Closest heuristic?",
     "answers": [
       "Help and Documentation",
-      "Error Prevention",
-      "Visibility of System Status"
+      "Visibility of System Status",
+      "Error Prevention"
     ],
     "correctIndex": 0,
     "explanation": "Help at the moment of need beats burying docs in a separate site only.",
@@ -978,11 +978,11 @@
     "id": "q76",
     "question": "Which heuristic says users should not have to wonder whether different words mean the same thing?",
     "answers": [
-      "Consistency and Standards",
       "User Control and Freedom",
-      "Aesthetic and Minimalist Design"
+      "Aesthetic and Minimalist Design",
+      "Consistency and Standards"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Internal and external consistency keep language and patterns predictable.",
     "difficulty": "easy",
     "category": "definitions"
@@ -991,11 +991,11 @@
     "id": "q77",
     "question": "A ride share app shows \"Driver arriving in 3 min\" with a live map pin. Heuristic?",
     "answers": [
-      "Visibility of System Status",
       "Help and Documentation",
-      "Aesthetic and Minimalist Design"
+      "Aesthetic and Minimalist Design",
+      "Visibility of System Status"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Live status reduces uncertainty about what is happening right now.",
     "difficulty": "easy",
     "category": "status"
@@ -1004,11 +1004,11 @@
     "id": "q78",
     "question": "A recipe app orders steps the way cooks actually cook, not by database ID. This is:",
     "answers": [
-      "Match Between System and the Real World",
+      "Error Prevention",
       "Flexibility and Efficiency of Use",
-      "Error Prevention"
+      "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Information should appear in a natural and logical order for the task.",
     "difficulty": "easy",
     "category": "metaphors"
@@ -1017,11 +1017,11 @@
     "id": "q79",
     "question": "You can exit a full screen video with Esc or a visible Close control. This supports:",
     "answers": [
+      "Consistency and Standards",
       "User Control and Freedom",
-      "Recognition Rather Than Recall",
-      "Consistency and Standards"
+      "Recognition Rather Than Recall"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Clearly marked exits prevent users from feeling trapped in a mode.",
     "difficulty": "easy",
     "category": "control"
@@ -1030,25 +1030,25 @@
     "id": "q80",
     "question": "Icons, spacing, and typography tokens come from one design system library. Heuristic?",
     "answers": [
-      "Consistency and Standards",
       "Help Users Recognize, Diagnose and Recover from Errors",
+      "Consistency and Standards",
       "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Shared components keep the product visually and behaviorally consistent.",
     "difficulty": "easy",
     "category": "consistency"
   },
   {
     "id": "q81",
-    "question": "Autosuggest corrects \"recieve\" to \"receive\" in a search field. Mainly which heuristic?",
+    "question": "Autosuggest offers to correct \"recieve\" to \"receive\" in a search field, letting the user accept or ignore it. Mainly which heuristic?",
     "answers": [
+      "Aesthetic and Minimalist Design",
       "Error Prevention",
-      "User Control and Freedom",
-      "Aesthetic and Minimalist Design"
+      "User Control and Freedom"
     ],
-    "correctIndex": 0,
-    "explanation": "Catching likely typos before a failed search prevents unnecessary errors.",
+    "correctIndex": 1,
+    "explanation": "Catching likely typos before a failed search prevents unnecessary errors, as long as the user can still override the suggestion.",
     "difficulty": "medium",
     "category": "errors"
   },
@@ -1056,11 +1056,11 @@
     "id": "q82",
     "question": "A color picker shows a palette of brand colors instead of asking for hex from memory. Heuristic?",
     "answers": [
-      "Recognition Rather Than Recall",
       "Visibility of System Status",
+      "Recognition Rather Than Recall",
       "Help and Documentation"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Visible choices beat forcing users to recall exact codes.",
     "difficulty": "easy",
     "category": "recognition"
@@ -1069,11 +1069,11 @@
     "id": "q83",
     "question": "A modal packs legal text, upsells, and a survey into one dialog. Which heuristic is hurt?",
     "answers": [
-      "Aesthetic and Minimalist Design",
       "Flexibility and Efficiency of Use",
-      "Match Between System and the Real World"
+      "Match Between System and the Real World",
+      "Aesthetic and Minimalist Design"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Dialogues should stay focused; extra content competes with the main task.",
     "difficulty": "medium",
     "category": "minimalism"
@@ -1082,11 +1082,11 @@
     "id": "q84",
     "question": "Recent files appear on the home screen for quick reopen. Closest heuristic?",
     "answers": [
-      "Flexibility and Efficiency of Use",
+      "Help Users Recognize, Diagnose and Recover from Errors",
       "Error Prevention",
-      "Help Users Recognize, Diagnose and Recover from Errors"
+      "Flexibility and Efficiency of Use"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Speeding frequent actions helps both recognition and expert efficiency.",
     "difficulty": "medium",
     "category": "efficiency"
@@ -1096,8 +1096,8 @@
     "question": "Permission denied copy explains why access failed and how to request it. This supports:",
     "answers": [
       "Help Users Recognize, Diagnose and Recover from Errors",
-      "Aesthetic and Minimalist Design",
-      "Consistency and Standards"
+      "Consistency and Standards",
+      "Aesthetic and Minimalist Design"
     ],
     "correctIndex": 0,
     "explanation": "Useful errors diagnose the issue and point to a fix.",
@@ -1108,11 +1108,11 @@
     "id": "q86",
     "question": "A keyboard shortcut cheat sheet opens from the Help menu. Heuristic?",
     "answers": [
+      "Match Between System and the Real World",
       "Help and Documentation",
-      "Visibility of System Status",
-      "Match Between System and the Real World"
+      "Visibility of System Status"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Documentation of accelerators helps users learn efficient paths.",
     "difficulty": "easy",
     "category": "help"
@@ -1147,11 +1147,11 @@
     "id": "q89",
     "question": "A banking app says \"Transfer money\" instead of \"Initiate ACH credit payload.\" This is:",
     "answers": [
-      "Match Between System and the Real World",
       "Flexibility and Efficiency of Use",
-      "Aesthetic and Minimalist Design"
+      "Aesthetic and Minimalist Design",
+      "Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "User facing language should match how people talk about the task.",
     "difficulty": "easy",
     "category": "metaphors"
@@ -1160,11 +1160,11 @@
     "id": "q90",
     "question": "A nested settings page offers a sticky Cancel that discards unsaved changes. This aids:",
     "answers": [
-      "User Control and Freedom",
       "Recognition Rather Than Recall",
-      "Consistency and Standards"
+      "Consistency and Standards",
+      "User Control and Freedom"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Users need a safe way out without saving unwanted edits.",
     "difficulty": "easy",
     "category": "control"
@@ -1173,11 +1173,11 @@
     "id": "q91",
     "question": "The same icon means Settings in every product from the company. Heuristic?",
     "answers": [
-      "Consistency and Standards",
       "Help Users Recognize, Diagnose and Recover from Errors",
-      "Error Prevention"
+      "Error Prevention",
+      "Consistency and Standards"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "External consistency across related products builds transferable knowledge.",
     "difficulty": "medium",
     "category": "consistency"
@@ -1186,11 +1186,11 @@
     "id": "q92",
     "question": "Numeric steppers with min and max stop users from typing impossible quantities. This is:",
     "answers": [
-      "Error Prevention",
+      "Help and Documentation",
       "Visibility of System Status",
-      "Help and Documentation"
+      "Error Prevention"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Input constraints keep values inside a valid range.",
     "difficulty": "easy",
     "category": "errors"
@@ -1199,11 +1199,11 @@
     "id": "q93",
     "question": "Menus show currently selected options with checkmarks. Which heuristic?",
     "answers": [
-      "Recognition Rather Than Recall",
+      "Aesthetic and Minimalist Design",
       "Match Between System and the Real World",
-      "Aesthetic and Minimalist Design"
+      "Recognition Rather Than Recall"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Visible selection state removes the need to remember what is active.",
     "difficulty": "medium",
     "category": "recognition"
@@ -1212,11 +1212,11 @@
     "id": "q94",
     "question": "A notification center groups alerts and lets you clear noise, keeping the main UI calm. Heuristic?",
     "answers": [
+      "User Control and Freedom",
       "Aesthetic and Minimalist Design",
-      "Flexibility and Efficiency of Use",
-      "User Control and Freedom"
+      "Flexibility and Efficiency of Use"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Keeping secondary noise out of the primary view protects focus.",
     "difficulty": "medium",
     "category": "minimalism"
@@ -1225,11 +1225,11 @@
     "id": "q95",
     "question": "Batch edit lets experts update twenty items at once while single edit remains available. Heuristic?",
     "answers": [
-      "Flexibility and Efficiency of Use",
       "Error Prevention",
+      "Flexibility and Efficiency of Use",
       "Help Users Recognize, Diagnose and Recover from Errors"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Efficient paths for frequent bulk work coexist with simple single item flows.",
     "difficulty": "medium",
     "category": "efficiency"
@@ -1238,25 +1238,25 @@
     "id": "q96",
     "question": "A form error summary at the top links jump to each invalid field. This supports:",
     "answers": [
-      "Help Users Recognize, Diagnose and Recover from Errors",
       "Consistency and Standards",
-      "Match Between System and the Real World"
+      "Match Between System and the Real World",
+      "Help Users Recognize, Diagnose and Recover from Errors"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Clear diagnosis plus navigation to the problem speeds recovery.",
     "difficulty": "medium",
     "category": "errors"
   },
   {
     "id": "q97",
-    "question": "Hovering a truncated filename shows the full name in a tooltip. Closest heuristic?",
+    "question": "Tapping a truncated filename expands it inline to show the full name, instead of relying on a hover tooltip. Closest heuristic?",
     "answers": [
       "Help and Documentation",
-      "Error Prevention",
-      "Flexibility and Efficiency of Use"
+      "Flexibility and Efficiency of Use",
+      "Error Prevention"
     ],
     "correctIndex": 0,
-    "explanation": "Lightweight contextual help reveals details only when needed.",
+    "explanation": "Lightweight contextual help reveals details only when needed, and a tap-based reveal works on touch devices where hover doesn't exist.",
     "difficulty": "medium",
     "category": "help"
   },
@@ -1264,11 +1264,11 @@
     "id": "q98",
     "question": "A team argues whether Undo belongs under Control or Error Prevention. Best framing?",
     "answers": [
-      "Undo is primarily User Control and Freedom, though it also reduces error impact",
+      "Undo replaces the need for Visibility of System Status",
       "Undo is only Aesthetic and Minimalist Design",
-      "Undo replaces the need for Visibility of System Status"
+      "Undo is primarily User Control and Freedom, though it also reduces error impact"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Heuristics can overlap; Undo is classically control, with secondary error recovery benefits.",
     "difficulty": "hard",
     "category": "tradeoffs"
@@ -1277,11 +1277,11 @@
     "id": "q99",
     "question": "A loading button disables itself and shows a spinner after click. Which pair of heuristics?",
     "answers": [
+      "Only Help and Documentation",
       "Visibility of System Status and Error Prevention",
-      "Only Match Between System and the Real World",
-      "Only Help and Documentation"
+      "Only Match Between System and the Real World"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Feedback shows progress while disabling prevents double submit mistakes.",
     "difficulty": "hard",
     "category": "tradeoffs"
@@ -1290,13 +1290,273 @@
     "id": "q100",
     "question": "Nielsen listed how many usability heuristics in the classic set taught in this game?",
     "answers": [
-      "10",
+      "15",
       "5",
-      "15"
+      "10"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Jakob Nielsen's classic set has ten usability heuristics.",
     "difficulty": "easy",
     "category": "definitions"
+  },
+  {
+    "id": "q101",
+    "question": "A music player shows the exact playback position and total duration on the scrubber. Which heuristic?",
+    "answers": [
+      "Visibility of System Status",
+      "Recognition Rather Than Recall",
+      "Match Between System and the Real World"
+    ],
+    "correctIndex": 0,
+    "explanation": "Showing current progress keeps users oriented within an ongoing process.",
+    "difficulty": "easy",
+    "category": "status"
+  },
+  {
+    "id": "q102",
+    "question": "A food delivery app labels a button \"Place order\" instead of \"Execute transaction.\" Heuristic?",
+    "answers": [
+      "Aesthetic and Minimalist Design",
+      "Match Between System and the Real World",
+      "Consistency and Standards"
+    ],
+    "correctIndex": 1,
+    "explanation": "Everyday task language beats technical or internal terms.",
+    "difficulty": "easy",
+    "category": "metaphors"
+  },
+  {
+    "id": "q103",
+    "question": "A note-taking app auto-saves drafts and also lets you manually revert to a previous version. This combination mainly supports:",
+    "answers": [
+      "User Control and Freedom",
+      "Error Prevention",
+      "Visibility of System Status"
+    ],
+    "correctIndex": 0,
+    "explanation": "Version history gives users a way back after unwanted changes, a form of emergency exit.",
+    "difficulty": "medium",
+    "category": "control"
+  },
+  {
+    "id": "q104",
+    "question": "Every icon in the app uses the same stroke width, corner radius, and color palette. Heuristic?",
+    "answers": [
+      "Match Between System and the Real World",
+      "Consistency and Standards",
+      "Aesthetic and Minimalist Design"
+    ],
+    "correctIndex": 1,
+    "explanation": "Uniform visual language across components is internal consistency.",
+    "difficulty": "easy",
+    "category": "consistency"
+  },
+  {
+    "id": "q105",
+    "question": "A budgeting app blocks you from entering a negative number of transactions. This is mainly:",
+    "answers": [
+      "Error Prevention",
+      "Help Users Recognize, Diagnose and Recover from Errors",
+      "Flexibility and Efficiency of Use"
+    ],
+    "correctIndex": 0,
+    "explanation": "Restricting input to valid values stops invalid data before it's submitted.",
+    "difficulty": "easy",
+    "category": "errors"
+  },
+  {
+    "id": "q106",
+    "question": "A design tool shows a minimal toolbar by default, with a \"More tools\" panel for rarely used features. Heuristic?",
+    "answers": [
+      "Aesthetic and Minimalist Design",
+      "Flexibility and Efficiency of Use",
+      "Recognition Rather Than Recall"
+    ],
+    "correctIndex": 0,
+    "explanation": "Surfacing only common tools keeps the primary UI uncluttered.",
+    "difficulty": "medium",
+    "category": "minimalism"
+  },
+  {
+    "id": "q107",
+    "question": "A CLI tool accepts both full flags (--verbose) and short aliases (-v) for the same option. Heuristic?",
+    "answers": [
+      "Help and Documentation",
+      "Consistency and Standards",
+      "Flexibility and Efficiency of Use"
+    ],
+    "correctIndex": 2,
+    "explanation": "Offering shorter aliases speeds up frequent users without removing the explicit option.",
+    "difficulty": "medium",
+    "category": "efficiency"
+  },
+  {
+    "id": "q108",
+    "question": "A video call app shows participants' avatars greyed out until they've joined. Which heuristic aids recognizing who's present?",
+    "answers": [
+      "Recognition Rather Than Recall",
+      "Match Between System and the Real World",
+      "Visibility of System Status"
+    ],
+    "correctIndex": 0,
+    "explanation": "Visible participant state lets users see who's there instead of remembering the invite list.",
+    "difficulty": "medium",
+    "category": "recognition"
+  },
+  {
+    "id": "q109",
+    "question": "A support chatbot links to relevant articles based on the words you just typed. Closest heuristic?",
+    "answers": [
+      "Help and Documentation",
+      "Error Prevention",
+      "Recognition Rather Than Recall"
+    ],
+    "correctIndex": 0,
+    "explanation": "Context-aware help surfaces relevant guidance exactly when it's needed.",
+    "difficulty": "medium",
+    "category": "help"
+  },
+  {
+    "id": "q110",
+    "question": "Nielsen's \"Error Prevention\" heuristic is best summarized as:",
+    "answers": [
+      "Hide all error states from the user entirely",
+      "Write the clearest possible error message after something breaks",
+      "Design so problems can't occur, or confirm before risky actions"
+    ],
+    "correctIndex": 2,
+    "explanation": "Preventing an error from happening is preferred over a good message after the fact.",
+    "difficulty": "easy",
+    "category": "definitions"
+  },
+  {
+    "id": "q111",
+    "question": "A file manager renames a duplicate upload to \"photo (1).jpg\" instead of blocking it or silently overwriting. What's the best framing?",
+    "answers": [
+      "It violates Consistency and Standards by not asking every time",
+      "It balances Error Prevention with not interrupting the user's flow",
+      "It only demonstrates Aesthetic and Minimalist Design"
+    ],
+    "correctIndex": 1,
+    "explanation": "Auto-resolving a conflict avoids data loss and avoids annoying prompts for a low-risk case, a tradeoff, not a pure rule.",
+    "difficulty": "hard",
+    "category": "tradeoffs"
+  },
+  {
+    "id": "q112",
+    "question": "A subscription cancel flow makes the button tiny, grey, and buried three menus deep, unlike every other action in the app. What's the core problem?",
+    "answers": [
+      "It is a correct use of Error Prevention",
+      "It only fails Visibility of System Status",
+      "It breaks Consistency and Standards to discourage a valid user goal"
+    ],
+    "correctIndex": 2,
+    "explanation": "Deliberately inconsistent styling to hide an action is a dark pattern that abuses the heuristic.",
+    "difficulty": "hard",
+    "category": "tradeoffs"
+  },
+  {
+    "id": "q113",
+    "question": "An email client shows \"Sending…\" then \"Sent\" with a timestamp next to the message. Heuristic?",
+    "answers": [
+      "User Control and Freedom",
+      "Help and Documentation",
+      "Visibility of System Status"
+    ],
+    "correctIndex": 2,
+    "explanation": "Clear state changes confirm what happened and when.",
+    "difficulty": "easy",
+    "category": "status"
+  },
+  {
+    "id": "q114",
+    "question": "A weather app uses a sun/cloud icon system that mirrors how people already describe weather. Heuristic?",
+    "answers": [
+      "Consistency and Standards",
+      "Match Between System and the Real World",
+      "Recognition Rather Than Recall"
+    ],
+    "correctIndex": 1,
+    "explanation": "Icons that map to real-world concepts are understood without training.",
+    "difficulty": "easy",
+    "category": "metaphors"
+  },
+  {
+    "id": "q115",
+    "question": "A game lets you rebind every key and also offers sensible presets for new players. Closest heuristic?",
+    "answers": [
+      "Aesthetic and Minimalist Design",
+      "Flexibility and Efficiency of Use",
+      "User Control and Freedom"
+    ],
+    "correctIndex": 1,
+    "explanation": "Customization for experienced players alongside simple defaults serves both audiences.",
+    "difficulty": "medium",
+    "category": "efficiency"
+  },
+  {
+    "id": "q116",
+    "question": "A form field for phone numbers accepts spaces, dashes, and parentheses instead of forcing one exact format. This mainly prevents:",
+    "answers": [
+      "Loss of Visibility of System Status",
+      "A Consistency and Standards violation",
+      "Errors from rigid, unforgiving input formatting"
+    ],
+    "correctIndex": 2,
+    "explanation": "Accepting common formats avoids rejecting valid input for a trivial formatting reason.",
+    "difficulty": "medium",
+    "category": "errors"
+  },
+  {
+    "id": "q117",
+    "question": "A media library shows a grid of album covers you can browse instead of requiring exact artist names typed in. Heuristic?",
+    "answers": [
+      "Aesthetic and Minimalist Design",
+      "Recognition Rather Than Recall",
+      "Help and Documentation"
+    ],
+    "correctIndex": 1,
+    "explanation": "Visual browsing lets users recognize what they want instead of recalling exact text.",
+    "difficulty": "easy",
+    "category": "recognition"
+  },
+  {
+    "id": "q118",
+    "question": "A team debates: should \"Help and Documentation\" and \"Recognition Rather Than Recall\" both apply to a searchable in-app glossary? Best framing?",
+    "answers": [
+      "Yes, it primarily aids Help and Documentation while also reducing recall through visible terms",
+      "No, only one heuristic can ever apply to a single feature",
+      "No, glossaries are unrelated to any Nielsen heuristic"
+    ],
+    "correctIndex": 0,
+    "explanation": "Features often satisfy more than one heuristic; the trick is naming the primary one.",
+    "difficulty": "hard",
+    "category": "tradeoffs"
+  },
+  {
+    "id": "q119",
+    "question": "A print dialog defaults to the last-used printer and paper size instead of blank fields every time. Heuristic?",
+    "answers": [
+      "Error Prevention",
+      "Flexibility and Efficiency of Use",
+      "Recognition Rather Than Recall"
+    ],
+    "correctIndex": 2,
+    "explanation": "Remembering prior choices for the user reduces what they need to recall.",
+    "difficulty": "medium",
+    "category": "recognition"
+  },
+  {
+    "id": "q120",
+    "question": "An enterprise tool's Settings page uses the exact same terminology as its own official documentation. Which heuristic connects the two?",
+    "answers": [
+      "Consistency and Standards",
+      "Match Between System and the Real World",
+      "Help and Documentation"
+    ],
+    "correctIndex": 0,
+    "explanation": "Terminology consistency between the UI and its docs prevents confusion when users cross-reference.",
+    "difficulty": "medium",
+    "category": "consistency"
   }
 ]
